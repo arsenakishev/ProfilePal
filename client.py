@@ -66,4 +66,4 @@ def home(username):
     return render_template("main.html",user = username);
 
 app.secret_key = 'A0Zr98j/3yX R~XxH!jN]LWX/,?RT'
-app.run("127.0.0.1", 13000, debug=True)
+app.run("127.0.0.1", 9002, debug=True)
