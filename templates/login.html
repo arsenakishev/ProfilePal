@@ -1,35 +1,8 @@
-﻿<!doctype html>
-<html>
-<head>
-    <title>ProfilePal</title>
-    <meta charset="UTF-8">
-    <style>
-        .center {
-            margin-left: auto;
-            margin-right: auto;
-        }
+﻿{% extends "index.html" %}
 
-        h1 {
-            text-align: center;
-            color: red;
-            font-size: 69px;
-        }
-
-        h2 {
-            text-align: center;
-            color: red;
-            font-size: 107px;
-        }
-
-        body {
-            text-align: center;
-        }
-    </style>
-</head>
-
-<body>
-    <h1><font face="courier new">Welcome to</font></h1>
-    <h2><font face="calibri">ProfilePal </font></h2>
+{% block content %}
+    <h1>Welcome to</h1>
+    <h2>ProfilePal </h2>
     <form method="post">
         <input type="text" placeholder="user name" name="username">
         <input type="password" placeholder="password" name="password">
@@ -38,6 +11,4 @@
         <input type="radio" name="action" value="logIn"> log in!<br>
         <input type="submit" value="done!">
     </form>
-</body>
-
-</html>
+{% endblock %}
