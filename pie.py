@@ -3,12 +3,15 @@ from flask import Flask, render_template, request, redirect, url_for, session, e
 app = Flask(__name__)
 users = {}
 
-@app.route("/", methods=['post', 'get'])
+@app.route("/login/", methods=['post', 'get'])
 def logIn():
     if request.method=='POST':
         username = request.form["username"]
         password = request.form["password"]
-        if request.form["action"]=='signUp':
+
+        if request.form["action"]=='signup':
+            username = request.form["inputUsername"]
+            password = request.form["inputPassword"]
             if username not in users:
                 userData = [password,[],[]]
                 users[username] = userData
@@ -18,12 +21,15 @@ def logIn():
             if password != users[username][0]: return 'password not correct.'
         session['username'] = request.form["username"]
         return redirect(url_for('home',username = request.form["username"]));
-    return render_template("login.html");
+    return render_template("index.html");
 
 @app.route('/index')
 def index():
     return render_template("index.html")
 
+@app.route('/main')
+def main():
+    return render_template("main.html")
 @app.route('/logout/')
 def logOut():
     session.pop('username', None)
