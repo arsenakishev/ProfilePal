@@ -1,0 +1,50 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+body{
+    padding-top:70px;
+}
+
+.navbar-default{
+    background: none;
+    background-color: transparent;
+
+}
+
+.navbar-header{
+    text-align: center;
+}
+
+
+.navbar-brand{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 25px;
+    left: 50%;
+    transform:translateX(-50%);
+    left:50%;
+    color: black !important;
+    position: absolute;
+
+}
+
+.navbar-toggle{
+    margin-top: 16px;
+}
+
+#signup{
+    width:50%;
+    text-align: center;
+    margin: 0 auto;
+    padding: 10px 10px 10px 10px;
+    border: 1px black;
+    
+}
+
+.btn-success{
+    background: none;
+    border-color: darkblue;
+    background-color: skyblue;
+}
