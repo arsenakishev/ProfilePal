@@ -1,14 +1,49 @@
-﻿{% extends "index.html" %}
+{% extends "index.html" %}
 
-{% block content %}
-    <h1>Welcome to</h1>
-    <h2>ProfilePal </h2>
-    <form method="post">
-        <input type="text" placeholder="user name" name="username">
-        <input type="password" placeholder="password" name="password">
-        <br /><br />
-        <input type="radio" name="action" value="signUp" checked> sign up!<br>
-        <input type="radio" name="action" value="logIn"> log in!<br>
-        <input type="submit" value="done!">
-    </form>
+
+{% block main %}
+
+    <section class="form-elegant" id="signup">
+
+        <!--Form without header-->
+        <div class="card">
+
+            <div class="card-body mx-4">
+
+                <!--Header-->
+                <div class="text-center">
+                    <h3 class="dark-grey-text mb-5"><strong>Sign in</strong></h3>
+                </div>
+
+                <!--Body-->
+                <div class="md-form">
+                    <i class="fa fa-envelope prefix grey-text"></i>
+                    <input type="text" id="Form-email1" class="form-control">
+                    <label for="Form-email1">Your email</label>
+                </div>
+
+                <div class="md-form pb-3">
+                    <i class="fa fa-lock prefix grey-text"></i>
+                    <input type="password" id="Form-pass1" class="form-control">
+                    <label for="Form-pass1">Your password</label>
+                    <p class="font-small blue-text d-flex justify-content-end">Forgot <a href="#" class="blue-text ml-1"> Password?</a></p>
+                </div>
+
+                <div class="text-center mb-3">
+                    <button type="button" class="btn btn-blue btn-block btn-rounded z-depth-1a" name="action" value="signin">Sign in</button>
+                </div>
+
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer mx-5 pt-3 mb-1">
+                <p class="font-small grey-text d-flex justify-content-end">Not a member? <a href="#" class="blue-text ml-1"> Sign Up</a></p>
+            </div>
+
+        </div>
+        <!--/Form without header-->
+
+    </section>
+
+
 {% endblock %}

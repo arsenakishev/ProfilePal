@@ -27,11 +27,25 @@ def logIn():
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template("index.html")
+    return render_template("login.html")
 
+@app.route('/action/',methods=['post'])
+def action():
+    if request.method=="POST":
+        if request.form["action"] =='signup':
+            return render_template("signup.html")
+    return render_template("login.html")
 @app.route('/editprofile')
 def editprofile():
     return render_template("editProfile.html")
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template("dashboard.html")
+
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
 
 @app.route('/logout/')
 def logOut():
