@@ -4,7 +4,7 @@ app = Flask(__name__)
 users = {}
 session = {}
 
-@app.route("/", methods=['post', 'get'])
+@app.route("/logIn", methods=['post', 'get'])
 def logIn():
     if request.method=='GET' and 'username' in session:
         return redirect(url_for('main',username = session['username']))
@@ -28,21 +28,35 @@ def logIn():
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template("index.html")
+    return render_template("login.html")
 
+@app.route('/action/',methods=['post'])
+def action():
+    if request.method=="POST":
+        if request.form["action"] =='signup':
+            return render_template("signup.html")
+    return render_template("login.html")
 @app.route('/editprofile')
 def editprofile():
     return render_template("editProfile.html")
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template("dashboard.html")
+
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
 
 @app.route('/logout/')
 def logOut():
     session.pop('username', None)
     return 'You have logged out. <a href="http://127.0.0.1:13000/">Go back.</a>'
 
-@app.route('/main')
-def main():
-    return redirect(url_for('index'))
-
+#@app.route('/main')
+#def main():
+#    return redirect(url_for('index'))
+#
 @app.route('/main', methods=['post', 'get'])
 def main(username):
     if 'username' not in session: return 'log in first!'
