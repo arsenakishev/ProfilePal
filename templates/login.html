@@ -7,7 +7,7 @@
 
         <!--Form without header-->
         <div class="card">
-
+            <form action="/logIn" method="POST">
             <div class="card-body mx-4">
 
                 <!--Header-->
@@ -18,28 +18,28 @@
                 <!--Body-->
                 <div class="md-form">
                     <i class="fa fa-envelope prefix grey-text"></i>
-                    <input type="text" id="Form-email1" class="form-control">
+                    <input type="text" id="Form-email1" name="inputEmail" class="form-control">
                     <label for="Form-email1">Your email</label>
                 </div>
 
                 <div class="md-form pb-3">
                     <i class="fa fa-lock prefix grey-text"></i>
-                    <input type="password" id="Form-pass1" class="form-control">
+                    <input type="password" name="inputPassword" id="Form-pass1" class="form-control">
                     <label for="Form-pass1">Your password</label>
                     <p class="font-small blue-text d-flex justify-content-end">Forgot <a href="#" class="blue-text ml-1"> Password?</a></p>
                 </div>
 
                 <div class="text-center mb-3">
-                    <button type="button" class="btn btn-blue btn-block btn-rounded z-depth-1a" name="action" value="signin">Sign in</button>
+                    <button type="button" class="btn btn-blue btn-block btn-rounded z-depth-1a" name="action" value="login">Sign in</button>
                 </div>
 
             </div>
 
             <!--Footer-->
             <div class="modal-footer mx-5 pt-3 mb-1">
-                <p class="font-small grey-text d-flex justify-content-end">Not a member? <a href="#" class="blue-text ml-1"> Sign Up</a></p>
+                <p class="font-small grey-text d-flex justify-content-end">Not a member? <a href="{{ url_for('signup') }}" class="blue-text ml-1"> Sign Up</a></p>
             </div>
-
+            </form>
         </div>
         <!--/Form without header-->
 

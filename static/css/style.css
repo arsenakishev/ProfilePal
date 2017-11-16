@@ -47,6 +47,21 @@ main{
   -webkit-transition: 0.2s;
   transition: 0.2s; }
 
+.sidebar {
+    position: fixed;
+    top: 56px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+}
+
+
 .form-light input[type="checkbox"]:checked + label:before {
   top: -4px;
   left: -3px;
@@ -66,4 +81,18 @@ main{
 .form-light .footer {
   border-bottom-left-radius: .3rem;
   border-bottom-right-radius: .3rem; }
+
+img.avatar {
+  border: 1px solid #eee;
+}
+
+.only-bottom-margin {
+  margin-top: 0px;
+}
+
+.activity-mini {
+  padding-right: 15px;
+  float: left;
+}
+
 

@@ -17,8 +17,8 @@ def logIn():
                 users[username] = userData
             else: return 'You have already signed up. <a href="http://127.0.0.1:13000/">Go back.</a>'
         elif 'login' in request.form: 
-            username = request.form["username"]
-            password = request.form["password"]
+            username = request.form["inputEmail"]
+            password = request.form["inputPassword"]
             if username not in users: return 'user name not found. <a href="http://127.0.0.1:13000/">Go back.</a>'
             if password != users[username][0]: return 'password not correct. <a href="http://127.0.0.1:13000/">Go back.</a>'
         session['username'] = request.form["username"]
@@ -30,15 +30,26 @@ def logIn():
 def index():
     return render_template("login.html")
 
-@app.route('/action/',methods=['post'])
+
+
+@app.route('/action/',methods=['post', 'get'])
 def action():
     if request.method=="POST":
         if request.form["action"] =='signup':
             return render_template("signup.html")
     return render_template("login.html")
-@app.route('/editprofile')
+
+@app.route('/login')
+def login():
+    return render_template("login.html")
+
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
+
+@app.route('/profile2')
 def editprofile():
-    return render_template("editProfile.html")
+    return render_template("profile2.html")
 
 @app.route('/dashboard')
 def dashboard():

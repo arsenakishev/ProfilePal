@@ -9,9 +9,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
-    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/bootstrap.css') }}" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="{{ url_for('static',filename='css/mdb.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/mdb.css') }}" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="{{ url_for('static',filename='css/style.css')}}" rel="stylesheet">
 </head>
@@ -21,17 +21,17 @@
 
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark blue double-nav">
-        <a class="navbar-brand" href="#">Profile Pal</a>
+        <a class="navbar-brand" href="#"><strong>Profile Pal</strong></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             {% block header %}
-            <ul class="navbar-nav ml-auto">
-                <form class="form-inline" action="/action/" method="post">
-                    <button class="btn btn-blue btn-sm my-0"type="submit" name="action" value="login">Login</button>
-                    <button class="btn btn-pink btn-sm my-0" type="submit" name="action" value="signup">Sign Up</button>
-                </form>
-            </ul>
+                <ul class="navbar-nav ml-auto">
+                    <form class="form-inline" action="/action/" method="post">
+                        <button class="btn btn-blue btn-sm my-0"type="submit" name="action" value="login">Login</button>
+                        <button class="btn btn-pink btn-sm my-0" type="submit" name="action" value="signup">Sign Up</button>
+                    </form>
+                </ul>
             {% endblock %}
         </div>
 
@@ -41,13 +41,15 @@
 
 <main>
     <div class="container">
+        {% block sidebar %}
+        {% endblock %}
         {% block main %}
 
         {% endblock %}
-
     </div>
 </main>
 <footer>
+
 </footer>
 <!-- /Start your project here-->
 
