@@ -15,41 +15,41 @@
             </div>
 
             <!--Body-->
-            <div class="md-form">
-                 <i class="fa fa-user prefix grey-text"></i>
-                <input type="text" id="Form-name" class="form-control">
-                <label for="Form-email2">Your name</label>
-            </div>
-
-            <div class="md-form">
-                <i class="fa fa-envelope prefix grey-text"></i>
-                <input type="text" id="Form-email2" class="form-control">
-                <label for="Form-email2">Your email</label>
-            </div>
-
-            <div class="md-form pb-3">
-                <i class="fa fa-lock prefix grey-text"></i>
-                <input type="password" id="Form-pass2" class="form-control">
-                <label for="Form-pass2">Your password</label>
-
-            </div>
-
-            <!--Grid row-->
-            <div class="row d-flex align-items-center mb-4">
-
-                <!--Grid column-->
-                <div class="col-md-3 col-md-6 text-center">
-                    <button type="button" class="btn btn-pink btn-block btn-rounded z-depth-1">Sign up</button>
+            <form method="POST">
+                <div class="md-form">
+                    <i class="fa fa-user prefix grey-text"></i>
+                    <input type="text" id="Form-name" class="form-control">
+                    <label for="Form-email2">Your name</label>
                 </div>
-                <!--Grid column-->
 
-                <!--Grid column-->
-                <div class="col-md-6">
-                    <p class="font-small grey-text d-flex justify-content-end">Have an account? <a href="{{ url_for('login') }}" class="blue-text ml-1"> Log in</a></p>
+                <div class="md-form">
+                    <i class="fa fa-envelope prefix grey-text"></i>
+                    <input type="text" name="inputEmail" id="Form-email2" class="form-control">
+                    <label for="Form-email2">Your email</label>
                 </div>
-                <!--Grid column-->
 
+                <div class="md-form pb-3">
+                    <i class="fa fa-lock prefix grey-text"></i>
+                    <input type="password" name="inputPassword" id="Form-pass2" class="form-control">
+                    <label for="Form-pass2">Your password</label>
+
+                </div>
+                <!--Grid row-->
+                <div class="row d-flex align-items-center mb-4">
+
+                    <!--Grid column-->
+                    <div class="col-md-3 col-md-6 text-center">
+                        <button type="submit" class="btn btn-pink btn-block btn-rounded z-depth-1">Sign up</button>
+                    </div>
+            </form>
+            <!--Grid column-->
+            <!--Grid column-->
+            <div class="col-md-6">
+                <p class="font-small grey-text d-flex justify-content-end">Have an account? <a href="{{ url_for('login') }}" class="blue-text ml-1"> Log in</a></p>
             </div>
+            <!--Grid column-->
+
+        </div>
             <!--Grid row-->
         </div>
 
