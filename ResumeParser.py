@@ -20,9 +20,16 @@ def parseResume(fileName, filePath):
 
     # load in the file.
     print "--> Loading Temporary File"
-    if(fileName.split('.')[1] != 'txt'):
+    if(fileName.split('.')[-1] != 'txt'):
         toReturn = Converter.document_to_text(fileName, filePath)
-        return (toReturn)
+        path = filePath.split('.')
+        path.pop()
+        path_nop = ''.join(path)
+        txtPath = path_nop + '.txt'
+        text_file = open(txtPath, "w")
+        text_file.write(toReturn)
+        text_file.close()
+        filePath = txtPath
     with open(filePath, 'r') as content_file:
         file_contents = content_file.read()  # read the file
         file_name = "resume.doc"  # get from your own processing.
@@ -45,5 +52,8 @@ def parseResume(fileName, filePath):
         # now we need to parse the xml.
         print "--> DONE:: Next steps do stuff with data received ."
         return (json_data)
+
+
+
 
 
