@@ -28,8 +28,9 @@
             {% block header %}
                 <ul class="navbar-nav ml-auto">
                     <form class="form-inline" action="/action/" method="post">
-                        <button class="btn btn-blue btn-sm my-0"type="submit" name="action" value="login">Login</button>
-                        <button class="btn btn-pink btn-sm my-0" type="submit" name="action" value="signup">Sign Up</button>
+                        <a class="btn btn-blue btn-sm my-0"type="submit" href="{{ url_for('login') }}">Login</a>
+
+                        <a class="btn btn-pink btn-sm my-0" type="submit" href="{{ url_for('signup') }}">Sign Up</a>
                     </form>
                 </ul>
             {% endblock %}
