@@ -95,4 +95,11 @@ img.avatar {
   float: left;
 }
 
+.photo{
+    box-shadow: 0 2px 5px 0 #00c851, 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.resume{
+    box-shadow: 0 2px 5px 0 #007bff, 0 2px 10px 0 rgba(0, 0, 0, 0.12)
+}
 

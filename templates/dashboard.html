@@ -1,23 +1,24 @@
 {% extends "index.html" %}
 
+{% block brand %}
+<a class="navbar-brand" href="{{ url_for('dashboard') }}"><strong>ProfilePal</strong></a>
+{% endblock %}
 {% block header%}
 
     <ul class="nav navbar-nav nav-flex-icons ml-auto">
         <li class="nav-item">
-            <a class="nav-link">
-                <i class="fa fa-gear"></i>
-                <span class="clearfix d-none d-sm-inline-block">Settings</span>
-            </a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link" href="{{ url_for('profile') }}">
                 <i class="fa fa-user"></i>
                 <span class="clearfix d-none d-sm-inline-block">Account</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Logout</a>
-            </div>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index') }}">
+                <i class="fa fa-gear"></i>
+                <span class="clearfix d-none d-sm-inline-block">Logout</span>
+            </a>
+        </li>
+
     </ul>
 
 
@@ -25,13 +26,22 @@
 
 {% block main %}
     <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
+        <div class="jumbotron col-md-10 resume">
+            <h1 class="h1-responsive">Resume Feedback</h1>
+            <p class="lead">Make sure your latest resume is uploaded to generate its feedback</p>
+            <hr class="my-2">
+            <p>
+            </p>
+            <button class="btn btn-outline-primary btn-lg" role="button" type="submit">Analyze Resume</button>
+        </div>
 
-                </div>
-
-            </div>
+        <div class="jumbotron col-md-10 photo">
+            <h1 class="h1-responsive">Photo Feedback</h1>
+            <p class="lead">Make sure your photo that is used for professional use is uploaded to generate its feedback</p>
+            <hr class="my-2">
+            <p>
+            </p>
+            <button class="btn btn-outline-success btn-lg" role="button" type="submit">Analyze Photo</button>
         </div>
 
 {% endblock %}

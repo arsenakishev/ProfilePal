@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Material Design Bootstrap</title>
+    <title>ProfilePal</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
@@ -21,22 +21,26 @@
 
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark blue double-nav">
-        <a class="navbar-brand" href="#"><strong>Profile Pal</strong></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            {% block header %}
-                <ul class="navbar-nav ml-auto">
-                    <form class="form-inline" action="/action/" method="post">
-                        <a class="btn btn-blue btn-sm my-0"type="submit" href="{{ url_for('login') }}">Login</a>
+        <div class="container">
+            {% block brand %}<a class="navbar-brand" href="#"><strong>ProfilePal</strong></a>{% endblock %}
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                {% block header %}
+                    <ul class="navbar-nav ml-auto">
+                        <form class="form-inline">
+                            <a class="btn btn-blue btn-sm my-0"type="submit" href="{{ url_for('login') }}">Login</a>
 
-                        <a class="btn btn-pink btn-sm my-0" type="submit" href="{{ url_for('signup') }}">Sign Up</a>
-                    </form>
-                </ul>
-            {% endblock %}
+                            <a class="btn btn-pink btn-sm my-0" type="submit" href="{{ url_for('signup') }}">Sign Up</a>
+                        </form>
+                    </ul>
+                {% endblock %}
+            </div>
         </div>
 
     </nav>
+
+
 </header>
 
 
@@ -49,7 +53,16 @@
         {% endblock %}
     </div>
 </main>
-<footer>
+<footer class="page-footer blue center-on-small-only fixed-bottom">
+
+
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            © 2017 Copyright: <a href="#"> ProfilePal.com </a>
+
+        </div>
+    </div>
+    <!--/.Copyright-->
 
 </footer>
 <!-- /Start your project here-->
@@ -64,7 +77,7 @@
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="{{ url_for('static',filename='js/mdb.min.js')}}"></script>
 <script>
-    $(".button-collapse").sideNav();
+
 </script>
 
 </body>
