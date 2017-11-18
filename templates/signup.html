@@ -2,67 +2,69 @@
 
 {% block main %}
 
-<section class="form-light">
+    <section class="form-light">
 
-    <!--Form without header-->
-    <div class="card" id="signup">
+        <!--Form without header-->
+        <div class="card" id="signup">
 
-        <div class="card-body mx-4">
+            <div class="card-body mx-4">
 
-            <!--Header-->
-            <div class="text-center">
-                <h3 class="pink-text mb-5"><strong>Sign up</strong></h3>
-            </div>
-
-            <!--Body-->
-            <div class="md-form">
-                 <i class="fa fa-user prefix grey-text"></i>
-                <input type="text" id="Form-name" name="name" class="form-control">
-                <label for="Form-email2">Your name</label>
-            </div>
-
-            <div class="md-form">
-                <i class="fa fa-envelope prefix grey-text"></i>
-                <input type="text" id="Form-email2" name="email" class="form-control">
-                <label for="Form-email2">Your email</label>
-            </div>
-
-            <div class="md-form pb-3">
-                <i class="fa fa-lock prefix grey-text"></i>
-                <input type="password" id="Form-pass2" name="password" class="form-control">
-                <label for="Form-pass2">Your password</label>
-
-            </div>
-
-            <!--Grid row-->
-            <div class="row d-flex align-items-center mb-4">
-
-                <!--Grid column-->
-                <div class="col-md-3 col-md-6 text-center">
-                    <button type="submit" class="btn btn-pink btn-block btn-rounded z-depth-1">Sign up</button>
+                <!--Header-->
+                <div class="text-center">
+                    <h3 class="pink-text mb-5"><strong>Sign up</strong></h3>
                 </div>
-                <!--Grid column-->
 
-                <!--Grid column-->
-                <div class="col-md-6">
-                    <p class="font-small grey-text d-flex justify-content-end">Have an account? <a href="{{ url_for('login') }}" class="blue-text ml-1"> Log in</a></p>
+                <!--Body-->
+
+                <div class="md-form">
+                    <i class="fa fa-user prefix grey-text"></i>
+                    <input type="text" id="Form-name" name="name" class="form-control">
+                    <label for="Form-email2">Your name</label>
                 </div>
-                <!--Grid column-->
+
+                <div class="md-form">
+                    <i class="fa fa-envelope prefix grey-text"></i>
+                    <input type="text" id="Form-email2" name="email" class="form-control">
+                    <label for="Form-email2">Your email</label>
+                </div>
+
+                <div class="md-form pb-3">
+                    <i class="fa fa-lock prefix grey-text"></i>
+                    <input type="password" id="Form-pass2" name="password" class="form-control">
+                    <label for="Form-pass2">Your password</label>
+
+                </div>
+
+                <!--Grid row-->
+                <div class="row d-flex align-items-center mb-4">
+
+                    <!--Grid column-->
+                    <div class="col-md-3 col-md-6 text-center">
+                        <button type="submit" class="btn btn-pink btn-block btn-rounded z-depth-1">Sign up</button>
+
+                    </div>
+
+
+                    <!--Grid column-->
+                    <div class="col-md-6">
+                        <p class="font-small grey-text d-flex justify-content-end">Have an account? <a href="{{ url_for('login') }}" class="blue-text ml-1"> Log in</a></p>
+                    </div>
+                    <!--Grid column-->
+
+                </div>
+                <!--Grid row-->
+            </div>
+
+            <!--Footer-->
+            <div class="footer pt-3 mdb-color lighten-3">
+
+
 
             </div>
-            <!--Grid row-->
-        </div>
-
-        <!--Footer-->
-        <div class="footer pt-3 mdb-color lighten-3">
-
-
 
         </div>
+        <!--/Form without header-->
 
-    </div>
-    <!--/Form without header-->
-
-</section>
+    </section>
 
 {% endblock %}
