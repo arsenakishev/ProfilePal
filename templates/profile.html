@@ -2,46 +2,65 @@
 
 
 {% block main %}
+    <h1 class="page-header">Profile</h1>
     <div class="row">
-        <div class="col-md-9">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12 lead">User profile<hr></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 text-center">
-                            <img class="img-circle avatar avatar-original" style="-webkit-user-select:none;
-              display:block; margin:auto;" src=">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h1 class="only-bottom-margin">User Name</h1>
-                                </div>
-                            </div>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <span class="text-muted">Name</span> Jane Doe<br>
-                                        <span class="text-muted">Email:</span> email@test.com<br>
-                                        <span class="text-muted">Birth date:</span> 01.01.2001<br>
-                                        <span class="text-muted">Gender:</span> male<br><br>
-                                        <span class="text-muted">Address:</span> 1970 W 6th St, Brooklyn, NY 11223<br><br>
-                                        <small class="text-muted">Created: 01.01.2015</small>
-                                    </div>
+        <!-- left column -->
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="text-center">
+                <img src="" class="avatar img-circle img-thumbnail" alt="avatar">
+                <h6>Upload a different photo...</h6>
+                <input type="file" class="text-center center-block well well-sm">
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="text-center">
+                <h6>Upload a different Resume...</h6>
+                <input type="file" class="text-center center-block well well-sm">
+            </div>
+        </div>
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <hr><button class="btn btn-default pull-right"><i class="glyphicon glyphicon-pencil"></i>Edit</button>
-                        </div>
+        <!-- edit form column -->
+        <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+            <h3>Personal info</h3>
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"><strong>Name</strong></label>
+                    <label class="col-lg-3 control-label">John Doe</label>
+                </div>
+                  <div class="form-group">
+                      <label class="col-lg-3 control-label"><strong>Street Address</strong></label>
+                    <label class="col-lg-3 control-label"></label>
+                </div>
+                 <div class="form-group">
+                     <label class="col-lg-3 control-label"><strong>Zip Code</strong></label>
+                    <label class="col-lg-3 control-label"></label>
+                </div>
+                 <div class="form-group">
+                    <label class="col-lg-3 control-label"><strong>City</strong></label>
+                    <label class="col-lg-3 control-label"></label>
+                </div>
+                 <div class="form-group">
+                    <label class="col-lg-3 control-label"><strong>Country</strong></label>
+                    <label class="col-lg-3 control-label"></label>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"><strong>Email</strong></label>
+                    <label class="col-lg-3 control-label"></label>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label"><strong>Username</strong></label>
+                    <label class="col-lg-3 control-label"></label>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-8">
+                        <a href="{{ url_for('editprofile') }}" class="btn btn-lime">Edit Profile</a>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 

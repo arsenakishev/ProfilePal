@@ -3,7 +3,8 @@ from flask import Flask, render_template, request, redirect, url_for, session, e
 from pymongo import MongoClient
 
 app = Flask(__name__)
-users = {}  # temporary placeholder for a database
+db = MongoClient('mongodb://imran:password12345@ds113626.mlab.com:13626/profile-pal').get_database()
+users = db.users
 
 @app.route('/')
 def index():
@@ -16,8 +17,9 @@ def login():
     if request.method=='POST':
         email = request.form["inputEmail"]
         password = request.form["inputPassword"]
-        if email not in users: return 'This email is not associated with any account. <a href="http://127.0.0.1:13000/">Go back.</a>'
-        if password != users[email][0]: return 'password not correct. <a href="http://127.0.0.1:13000/">Go back.</a>'
+        credential = {'email':email,'password':password}
+        if not users.find_one(credential):
+            return 'Incorrect login credential. <a href="http://127.0.0.1:13000/">Go back.</a>'
         session['email'] = email
         return redirect(url_for('editprofile'))
     return render_template("login.html")
@@ -25,11 +27,14 @@ def login():
 @app.route('/signup', methods=['post', 'get'])
 def signup():
     if request.method=='POST':
-        email = request.form["inputEmail"]
-        password = request.form["inputPassword"]
-        if email not in users:
-            userData = [password,[],[]]
-            users[email] = userData
+        name = request.form["name"].split()
+        fname = name[0]
+        lname = name[len(name) - 1]
+        email = request.form["email"]
+        password = request.form["password"]
+        credential = {'email':email,'password':password,'first_name':fname,'last_name':lname}
+        if not users.find_one(credential):
+            db.users.insert_one(credential)
         else: return 'You have already signed up. <a href="http://127.0.0.1:13000/">Go back.</a>'
         session['email'] = email
         return redirect(url_for('editprofile'))
@@ -47,7 +52,7 @@ def dashboard():
 def profile():
     return render_template("profile.html")
 
-@app.route('/logout/')
+@app.route('/logout')
 def logOut():
     session.pop('email', None)
     return 'You have logged out. <a href="http://127.0.0.1:13000/">Go back.</a>'
@@ -56,11 +61,9 @@ def logOut():
 def main(email):
     if 'email' not in session: return 'log in first!'
     if request.method=='POST':
-        if "logout" in request.form:
-            return redirect(url_for('index'))
-        elif "del acc" in request.form:
+        if "del acc" in request.form:
             session.pop('email', None)
-            del users[email]
+            #del users[email]
             return 'Account deleted. <a href="http://127.0.0.1:13000/">Go back.</a>'
         #other functionalities
         
