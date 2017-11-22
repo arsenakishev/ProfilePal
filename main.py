@@ -32,8 +32,9 @@ def signup():
         lname = name[len(name) - 1]
         email = request.form["email"]
         password = request.form["password"]
-        credential = {'email':email,'password':password,'first_name':fname,'last_name':lname}
-        if not users.find_one(credential):
+        credential = {'email':email}
+        if not users.find_one(credential):  
+            credential = {'email':email,'password':password,'first_name':fname,'last_name':lname}
             db.users.insert_one(credential)
         else: return 'You have already signed up. <a href="http://127.0.0.1:13000/">Go back.</a>'
         session['email'] = email
