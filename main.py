@@ -1,4 +1,6 @@
+#pip install pymongo
 from flask import Flask, render_template, request, redirect, url_for, session, escape
+from pymongo import MongoClient
 
 app = Flask(__name__)
 users = {}  # temporary placeholder for a database
