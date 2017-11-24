@@ -47,6 +47,7 @@ def signup():
 @app.route('/editProfile', methods=['post', 'get'])
 def editprofile():
     if 'email' not in session: return '<a href="http://127.0.0.1:13000/">log in</a> first!' #requires an account to access this page
+    flag = 0 # 0: no error, 1: password and confirm password not the same, 2: the new email is already associated with an account
     if request.method=='POST':
         if 'confirm' in request.form:
             fname = request.form["firstName"]
@@ -59,8 +60,16 @@ def editprofile():
                 credential = {'email':email,'password':password,
                               'first_name':fname,'last_name':lname}
                 users.find_one_and_update({'email': session['email']}, {'$inc': {'count': 1}, '$set':credential})
+                session['email'] = email
                 return redirect(url_for('dashboard'))
-    return render_template("profile2.html")
+            elif password != confirmPassword:
+                flag = 1
+            elif email != session['email'] and users.find_one(credential):
+                flag = 2
+    user_info = users.find_one({'email':session['email']})
+#example format for user_info:
+#{'email': 'ia761@nyu.edu', 'resume': 'resume', 'last_name': 'Ahmed', 'image': 'C:UsersImranDesktopsig.jpg', 'first_name': 'Imran', 'password': 'pass'}
+    return render_template("profile2.html", flag = flag, user_info = user_info)
 
 @app.route('/dashboard')
 def dashboard():
@@ -69,7 +78,8 @@ def dashboard():
 @app.route("/profile")
 def profile():
     if 'email' not in session: return '<a href="http://127.0.0.1:13000/">log in</a> first!' #requires an account to access this page
-    return render_template("profile.html")
+    user_info = users.find_one({'email':session['email']})
+    return render_template("profile.html", user_info = user_info)
 
 @app.route('/logout')
 def logOut():
