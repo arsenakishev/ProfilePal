@@ -1,3 +1,5 @@
+#print statements commented due to incompatibility with python 3
+
 #Imran Ahmed
 #ProfilePal
 #This is to parse the resume.
@@ -13,13 +15,13 @@ import Converter
 
 # PURPOSE :: TO HELP SPEED UP PROCESS OF RESUME PARSING USING PYTHON.
 def parseResume(fileName, filePath):
-    print "Starting Importer... one moment. "
-    print ""
-    print "Shaking hands with clients..."
-    print "-----------------------------"
+    #print "Starting Importer... one moment. "
+    #print ""
+    #print "Shaking hands with clients..."
+    #print "-----------------------------"
 
     # load in the file.
-    print "--> Loading Temporary File"
+    #print "--> Loading Temporary File"
     if(fileName.split('.')[-1] != 'txt'):
         toReturn = Converter.document_to_text(fileName, filePath)
         path = filePath.split('.')
@@ -30,13 +32,13 @@ def parseResume(fileName, filePath):
         text_file.write(toReturn)
         text_file.close()
         filePath = txtPath
-    with open(filePath, 'r') as content_file:
+    with open(filePath, 'rb') as content_file:
         file_contents = content_file.read()  # read the file
         file_name = "resume.doc"  # get from your own processing.
 
-        print "--> LOADED"
+        #print "--> LOADED"
 
-        print "--> Connecting to Parser"
+        #print "--> Connecting to Parser"
 
         client = Client('http://www.cvparseapi.com/cvparseapi.asmx?WSDL')
         big_endpoint = "http://www.cvparseapi.com/cvparseapi.asmx?WSDL"
@@ -45,12 +47,12 @@ def parseResume(fileName, filePath):
 
         result = client.service.ParseResumeNTG(f=file_contents, fileName=file_name, YourKey=big_key, Password=big_pass)
 
-        print "--> Connected Passing Data :: Parsing.... (waiting)"
+        #print "--> Connected Passing Data :: Parsing.... (waiting)"
 
         o = xmltodict.parse(result)
         json_data = json.dumps(o)
         # now we need to parse the xml.
-        print "--> DONE:: Next steps do stuff with data received ."
+        #print "--> DONE:: Next steps do stuff with data received ."
         return (json_data)
 
 

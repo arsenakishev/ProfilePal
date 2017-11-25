@@ -1,14 +1,16 @@
-#pip install docx
-#pip install pdfminer
+#pip install docxpy
+#pip install pdfminer.six
+
 from subprocess import Popen, PIPE
-from docx import opendocx, getdocumenttext
+#from docx import opendocx, getdocumenttext
 
 #http://stackoverflow.com/questions/5725278/python-help-using-pdfminer-as-a-library
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
-from cStringIO import StringIO
+from io import StringIO
+import docxpy
 
 def convert_pdf_to_txt(path):
     rsrcmgr = PDFResourceManager()
@@ -16,7 +18,7 @@ def convert_pdf_to_txt(path):
     codec = 'utf-8'
     laparams = LAParams()
     device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
-    fp = file(path, 'rb')
+    fp = open(path, 'rb')
     interpreter = PDFPageInterpreter(rsrcmgr, device)
     password = ""
     maxpages = 0
@@ -37,12 +39,13 @@ def document_to_text(filename, file_path):
         stdout, stderr = p.communicate()
         return stdout.decode('ascii', 'ignore')
     elif filename[-5:] == ".docx":
-        document = opendocx(file_path)
-        paratextlist = getdocumenttext(document)
-        newparatextlist = []
-        for paratext in paratextlist:
-            newparatextlist.append(paratext.encode("utf-8"))
-        return '\n\n'.join(newparatextlist)
+        #document = opendocx(file_path)
+        #paratextlist = getdocumenttext(document)
+        #newparatextlist = []
+        #for paratext in paratextlist:
+            #newparatextlist.append(paratext.encode("utf-8"))
+        #return '\n\n'.join(newparatextlist)
+        return docxpy.process(filename)
     elif filename[-4:] == ".odt":
         cmd = ['odt2txt', file_path]
         p = Popen(cmd, stdout=PIPE)

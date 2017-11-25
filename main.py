@@ -1,13 +1,20 @@
 # Currently this code assumes that the user will input correct information and does not check if the input is valid.
 #pip install pymongo
+import os
+import gridfs
+import ResumeParser
 from flask import Flask, render_template, request, redirect, url_for, session, escape
 from pymongo import MongoClient
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = 'C:\\Users\\sparK1N9\\Desktop\\CS4523\\Project' #where the user-uploaded files will be temporarily saved
 
 app = Flask(__name__)
 db = MongoClient('mongodb://imran:password12345@ds113626.mlab.com:13626/profile-pal').get_database()
 users = db.users
 feedback_resume = db.Feedback_Resume
 feedback_picture = db.Feedback_Picture
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def index():
@@ -66,6 +73,13 @@ def editprofile():
                 flag = 1
             elif email != session['email'] and users.find_one(credential):
                 flag = 2
+        if 'file' in request.form:
+            file = request.files['resume']
+            if file:
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                parsed = ResumeParser.parseResume(filename, UPLOAD_FOLDER+'\\'+filename)
+                users.find_one_and_update({'email': session['email']}, {'$inc': {'count': 1}, '$set':{'resume':parsed}})
     user_info = users.find_one({'email':session['email']})
 #example format for user_info:
 #{'email': 'ia761@nyu.edu', 'resume': 'resume', 'last_name': 'Ahmed', 'image': 'C:UsersImranDesktopsig.jpg', 'first_name': 'Imran', 'password': 'pass'}
@@ -86,17 +100,6 @@ def logOut():
     session.pop('email', None)
     return 'You have logged out. <a href="http://127.0.0.1:13000/">Go back.</a>'
 
-@app.route('/main', methods=['post', 'get'])
-def main(email):
-    if 'email' not in session: return 'log in first!'
-    if request.method=='POST':
-        if "del acc" in request.form:
-            session.pop('email', None)
-            #del users[email]
-            return 'Account deleted. <a href="http://127.0.0.1:13000/">Go back.</a>'
-        #other functionalities
-        
-    return render_template("profile2.html", user = email);
 
 app.secret_key = 'A0Zr98j/3yX R~XXH!jN]LWX/,?RT'
 app.run("127.0.0.1", 13000, debug=True)
