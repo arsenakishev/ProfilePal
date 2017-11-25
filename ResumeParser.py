@@ -7,7 +7,7 @@
 #pip install lxml
 #pip install xmltodict
 
-from os import listdir
+from os import listdir, remove
 from os.path import isfile, join
 from zeep import Client
 import xmltodict, json
@@ -28,7 +28,7 @@ def parseResume(fileName, filePath):
         path.pop()
         path_nop = ''.join(path)
         txtPath = path_nop + '.txt'
-        text_file = open(txtPath, "w")
+        text_file = open(txtPath, "w", encoding='utf-8')
         text_file.write(toReturn)
         text_file.close()
         filePath = txtPath
@@ -53,6 +53,8 @@ def parseResume(fileName, filePath):
         json_data = json.dumps(o)
         # now we need to parse the xml.
         #print "--> DONE:: Next steps do stuff with data received ."
+        content_file.close()
+        remove(filePath)
         return (json_data)
 
 
