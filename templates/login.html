@@ -6,6 +6,16 @@
     <section class="form-elegant" id="signup">
 
         <!--Form without header-->
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            <strong>Oh snap!</strong> Change a few things up and try submitting again.
+        </div>
+        {% endif %}
+        {% if logout %}
+        <div class="alert alert-success" role="alert">
+            <strong>Oh snap!</strong> Change a few things up and try submitting again.
+        </div>
+        {% endif %}
         <div class="card">
             <form method="POST">
             <div class="card-body mx-4">

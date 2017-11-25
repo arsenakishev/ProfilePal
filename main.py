@@ -7,7 +7,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, e
 from pymongo import MongoClient
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = 'C:\\Users\\sparK1N9\\Desktop\\CS4523\\Project' #where the user-uploaded files will be temporarily saved
+UPLOAD_FOLDER = 'C:\\Users\\Dr0o0\\Desktop\\Software\\ProfilePal' #where the user-uploaded files will be temporarily saved
 user_photo = '\\static\\photo.jpg' #where the user-uploaded photo will be saved
 
 app = Flask(__name__)
@@ -26,18 +26,22 @@ def index():
 
 @app.route('/login', methods=['post', 'get'])
 def login():
+    error = None
+
     if request.method=='POST':
         email = request.form["inputEmail"]
         password = request.form["inputPassword"]
         credential = {'email':email,'password':password}
         if not users.find_one(credential):
-            return 'Incorrect login credential. <a href="http://127.0.0.1:13000/">Go back.</a>'
-        session['email'] = email
-        return redirect(url_for('dashboard'))
+            error = "Invalid Credentials"
+        else:
+            session['email'] = email
+            return redirect(url_for('dashboard'))
     return render_template("login.html")
 
 @app.route('/signup', methods=['post', 'get'])
 def signup():
+    error =None
     if request.method=='POST':
         name = request.form["name"].split()
         fname = name[0]
@@ -48,10 +52,9 @@ def signup():
         if not users.find_one(credential):  
             credential = {'email':email,'password':password,'first_name':fname,'last_name':lname}
             db.users.insert_one(credential)
-        else: return 'You have already signed up. <a href="http://127.0.0.1:13000/">Go back.</a>'
-        session['email'] = email
-        return redirect(url_for('dashboard'))
-    return render_template('signup.html')
+        else:
+            error = "Invalid"
+    return render_template('signup.html',error=error)
 
 @app.route('/editProfile', methods=['post', 'get'])
 def editprofile():
@@ -125,7 +128,7 @@ def profile():
 @app.route('/logout')
 def logOut():
     session.pop('email', None)
-    return 'You have logged out. <a href="http://127.0.0.1:13000/">Go back.</a>'
+    return redirect(url_for('login',logout="logout"))
 
 
 app.secret_key = 'A0Zr98j/3yX R~XXH!jN]LWX/,?RT'
