@@ -8,6 +8,7 @@ from pymongo import MongoClient
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = 'C:\\Users\\sparK1N9\\Desktop\\CS4523\\Project' #where the user-uploaded files will be temporarily saved
+user_photo = '\\static\\photo.jpg' #where the user-uploaded photo will be saved
 
 app = Flask(__name__)
 db = MongoClient('mongodb://imran:password12345@ds113626.mlab.com:13626/profile-pal').get_database()
@@ -93,11 +94,11 @@ def editprofile():
     if fs.exists(user_info['image']):
         imageFlag = 1
         image_data = fs.get(user_info['image'])
-        f = open(UPLOAD_FOLDER+'\\static\\photo.jpg', 'wb')
+        f = open(UPLOAD_FOLDER + user_photo, 'wb')
         f.write(image_data.read())
         f.close()
-    elif os.path.isfile(UPLOAD_FOLDER+'\\static\\photo.jpg'):
-        os.remove(UPLOAD_FOLDER+'\\static\\photo.jpg')
+    elif os.path.isfile(UPLOAD_FOLDER + user_photo):
+        os.remove(UPLOAD_FOLDER + user_photo)
 #example format for user_info:
 #{'email': 'ia761@nyu.edu', 'resume': 'resume', 'last_name': 'Ahmed', 'image': ObjectId('5a19230f7c051e1a6c474c67'), 'first_name': 'Imran', 'password': 'pass'}
     return render_template("profile2.html", flag = flag, user_info = user_info, imgFlag = imageFlag)
@@ -114,11 +115,11 @@ def profile():
     if fs.exists(user_info['image']):
         imageFlag = 1
         image_data = fs.get(user_info['image'])
-        f = open(UPLOAD_FOLDER+'\\static\\photo.jpg', 'wb')
+        f = open(UPLOAD_FOLDER + user_photo, 'wb')
         f.write(image_data.read())
         f.close()
-    elif os.path.isfile(UPLOAD_FOLDER+'\\static\\photo.jpg'):
-        os.remove(UPLOAD_FOLDER+'\\static\\photo.jpg')
+    elif os.path.isfile(UPLOAD_FOLDER + user_photo):
+        os.remove(UPLOAD_FOLDER + user_photo)
     return render_template("profile.html", user_info = user_info, imgFlag = imageFlag)
 
 @app.route('/logout')
