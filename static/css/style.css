@@ -1,14 +1,23 @@
 /* Your custom styles */
 
 
+
 main{
 
     padding-top: 30px;
+    flex: 1 0 auto;
+    background-color:light;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 #signup{
     margin: 0 auto;
-    width: 70%;
+    width: 60%;
 }
 .form-elegant .font-small {
   font-size: 0.8rem; }

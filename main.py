@@ -42,6 +42,7 @@ def login():
 @app.route('/signup', methods=['post', 'get'])
 def signup():
     error =None
+    success=None
     if request.method=='POST':
         name = request.form["name"].split()
         fname = name[0]
@@ -50,11 +51,12 @@ def signup():
         password = request.form["password"]
         credential = {'email':email}
         if not users.find_one(credential):  
-            credential = {'email':email,'password':password,'first_name':fname,'last_name':lname}
+            credential = {'email':email,'password':password,'first_name':fname,'last_name':lname,'image':''}
             db.users.insert_one(credential)
+            success="Success"
         else:
             error = "Invalid"
-    return render_template('signup.html',error=error)
+    return render_template('signup.html',error=error,success=success)
 
 @app.route('/editProfile', methods=['post', 'get'])
 def editprofile():
@@ -128,7 +130,7 @@ def profile():
 @app.route('/logout')
 def logOut():
     session.pop('email', None)
-    return redirect(url_for('login',logout="logout"))
+    return redirect(url_for("login"))
 
 
 app.secret_key = 'A0Zr98j/3yX R~XXH!jN]LWX/,?RT'

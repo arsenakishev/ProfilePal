@@ -4,18 +4,15 @@
 
     <section class="form-light">
 
-        {% if error %}
-            <div class="alert alert-danger " role="alert">
-                <strong>Oh snap!</strong> Change a few things up and try submitting again.
-            </div>
-        {% endif %}
+
          {% if error %}
-            <div class="alert alert-success " role="alert">
-                <strong>Oh snap!</strong> Change a few things up and try submitting again.
+            <div class="alert alert-danger " role="alert">
+                <strong>Email</strong> already exists. Try again!
             </div>
-         {% else %}
-             <div class="alert alert-success " role="alert">
-                <strong>Oh snap!</strong> Change a few things up and try submitting again.
+         {% endif %}
+        {% if success %}
+            <div class="alert alert-success" role="alert">
+                Successfully signed up. Login <a href="{{ url_for('login') }}">here!</a> </strong>
             </div>
         {% endif %}
         <!--Form without header-->
