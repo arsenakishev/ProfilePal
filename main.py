@@ -26,18 +26,23 @@ def index():
 
 @app.route('/login', methods=['post', 'get'])
 def login():
+    error = None
+
     if request.method=='POST':
         email = request.form["inputEmail"]
         password = request.form["inputPassword"]
         credential = {'email':email,'password':password}
         if not users.find_one(credential):
-            return 'Incorrect login credential. <a href="http://127.0.0.1:13000/">Go back.</a>'
-        session['email'] = email
-        return redirect(url_for('dashboard'))
-    return render_template("login.html")
+            error = "Invalid Credentials"
+        else:
+            session['email'] = email
+            return redirect(url_for('dashboard'))
+    return render_template("login.html",error=error)
 
 @app.route('/signup', methods=['post', 'get'])
 def signup():
+    error =None
+    success=None
     if request.method=='POST':
         name = request.form["name"].split()
         fname = name[0]
@@ -46,12 +51,12 @@ def signup():
         password = request.form["password"]
         credential = {'email':email}
         if not users.find_one(credential):  
-            credential = {'email':email,'password':password,'first_name':fname,'last_name':lname, 'image':''}
+            credential = {'email':email,'password':password,'first_name':fname,'last_name':lname,'image':''}
             db.users.insert_one(credential)
-        else: return 'You have already signed up. <a href="http://127.0.0.1:13000/">Go back.</a>'
-        session['email'] = email
-        return redirect(url_for('dashboard'))
-    return render_template('signup.html')
+            success="Success"
+        else:
+            error = "Invalid"
+    return render_template('signup.html',error=error,success=success)
 
 @app.route('/editProfile', methods=['post', 'get'])
 def editprofile():
@@ -124,8 +129,10 @@ def profile():
 
 @app.route('/logout')
 def logOut():
+    if os.path.isfile(UPLOAD_FOLDER + user_photo):
+        os.remove(UPLOAD_FOLDER + user_photo)
     session.pop('email', None)
-    return 'You have logged out. <a href="http://127.0.0.1:13000/">Go back.</a>'
+    return redirect(url_for("login"))
 
 
 app.secret_key = 'A0Zr98j/3yX R~XXH!jN]LWX/,?RT'
