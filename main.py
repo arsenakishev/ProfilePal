@@ -7,7 +7,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, e
 from pymongo import MongoClient
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = 'C:\\Users\\Dr0o0\\Desktop\\Software\\ProfilePal' #where the user-uploaded files will be temporarily saved
+UPLOAD_FOLDER = 'C:\\Users\\sparK1N9\\Desktop\\CS4523\\Project' #where the user-uploaded files will be temporarily saved
 user_photo = '\\static\\photo.jpg' #where the user-uploaded photo will be saved
 
 app = Flask(__name__)
@@ -37,7 +37,7 @@ def login():
         else:
             session['email'] = email
             return redirect(url_for('dashboard'))
-    return render_template("login.html")
+    return render_template("login.html",error=error)
 
 @app.route('/signup', methods=['post', 'get'])
 def signup():
@@ -50,8 +50,9 @@ def signup():
         email = request.form["email"]
         password = request.form["password"]
         credential = {'email':email}
-        if not users.find_one(credential):
-            credential = {'email':email,'password':password,'first_name':fname,'last_name':lname, 'image':''}
+
+        if not users.find_one(credential):  
+            credential = {'email':email,'password':password,'first_name':fname,'last_name':lname,'image':''}
 
             db.users.insert_one(credential)
             success="Success"
@@ -130,6 +131,8 @@ def profile():
 
 @app.route('/logout')
 def logOut():
+    if os.path.isfile(UPLOAD_FOLDER + user_photo):
+        os.remove(UPLOAD_FOLDER + user_photo)
     session.pop('email', None)
     return redirect(url_for("login"))
 

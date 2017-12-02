@@ -22,46 +22,59 @@
             </div>
             <br>
             <input class="btn btn-primary" style="margin-left: 0" name="file" value="Confirm" type="submit">
+
         </div>
     </form>
 
     <!-- edit form column -->
     <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+
          {% if flag==1 %}
             <div class="alert alert-danger" role="alert">
                 <strong>Passwords do not match</strong>. Please try again.
             </div>
         {% endif %}
+
         <h3>Personal info</h3>
         <form class="form-horizontal" role="form" method="POST">
             <div class="form-group">
                 <label class="col-lg-3 control-label">First name:</label>
                 <div class="col-lg-8">
-                    <input class="form-control" name="firstName" type="text" value="{{ user_info.first_name }}">
+
+                    <input class="form-control" name="firstName" type="text" value="{{user_info['first_name']}}">
+
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-3 control-label">Last name:</label>
                 <div class="col-lg-8">
-                    <input class="form-control" name="lastName" type="text" value="{{ user_info.last_name }}">
+
+                    <input class="form-control" name="lastName" type="text" value="{{user_info['last_name']}}">
+
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-3 control-label">Email:</label>
                 <div class="col-lg-8">
-                    <input class="form-control" name="email" type="text" value="{{user_info.email}}">
+
+                    <input class="form-control" name="email" type="text" value="{{user_info['email']}}">
+
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-3 control-label">Password:</label>
                 <div class="col-md-8">
-                    <input class="form-control" name="password" type="password" value="{{ user_info.password }}">
+
+                    <input class="form-control" name="password" type="password" value="{{user_info['password']}}">
+
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-3 control-label">Confirm password:</label>
                 <div class="col-md-8">
-                    <input class="form-control" name="confirmPassword" type="password" value="{{ user_info.password }}">
+
+                    <input class="form-control" name="confirmPassword" type="password" value="{{user_info['password']}}">
+
                 </div>
             </div>
             <div class="form-group">
