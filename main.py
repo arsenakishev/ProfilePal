@@ -50,8 +50,9 @@ def signup():
         email = request.form["email"]
         password = request.form["password"]
         credential = {'email':email}
-        if not users.find_one(credential):  
-            credential = {'email':email,'password':password,'first_name':fname,'last_name':lname,'image':''}
+        if not users.find_one(credential):
+            credential = {'email':email,'password':password,'first_name':fname,'last_name':lname, 'image':''}
+
             db.users.insert_one(credential)
             success="Success"
         else:
