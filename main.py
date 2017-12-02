@@ -76,7 +76,7 @@ def editprofile():
                               'first_name':fname,'last_name':lname}
                 users.find_one_and_update({'email': session['email']}, {'$inc': {'count': 1}, '$set':credential})
                 session['email'] = email
-                return redirect(url_for('dashboard'))
+                return redirect(url_for('profile'))
             elif password != confirmPassword:
                 flag = 1
             elif email != session['email'] and users.find_one(credential):
