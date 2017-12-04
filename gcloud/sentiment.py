@@ -7,16 +7,11 @@ from google.cloud.language import types
 
 def return_results(annotations):
     score = annotations.document_sentiment.score
-#    magnitude = annotations.document_sentiment.magnitude
     sentiment_list = []
     for index, sentence in enumerate(annotations.sentences):
         sentence_sentiment = sentence.sentiment.score
         sentiment_list.append(sentence_sentiment)
-#        print('Sentence {} has a sentiment score of {}'.format(
-#            index, sentence_sentiment))
 
-#    print('Overall Sentiment: score of {} with magnitude of {}'.format(
-#        score, magnitude))
     return sentiment_list 
 
 
