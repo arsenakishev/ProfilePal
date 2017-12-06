@@ -118,6 +118,7 @@ def dashboard():
         user_info = users.find_one({'email':session['email']})
         if 'resume' in request.form:
             #
+            return "resume results"
         if 'photo' in request.form:
             if fs.exists(user_info['image']):
                 image_data = fs.get(user_info['image'])
