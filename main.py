@@ -3,6 +3,7 @@
 import os
 import gridfs
 import ResumeParser
+import detect_face
 from flask import Flask, render_template, request, redirect, url_for, session, escape
 from pymongo import MongoClient
 from werkzeug.utils import secure_filename
@@ -110,8 +111,21 @@ def editprofile():
 #{'email': 'ia761@nyu.edu', 'resume': 'resume', 'last_name': 'Ahmed', 'image': ObjectId('5a19230f7c051e1a6c474c67'), 'first_name': 'Imran', 'password': 'pass'}
     return render_template("profile2.html", flag = flag, user_info = user_info, imgFlag = imageFlag)
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['post', 'get'])
 def dashboard():
+    if 'email' not in session: return '<a href="http://127.0.0.1:13000/">log in</a> first!' #requires an account to access this page
+    if request.method=='POST':
+        user_info = users.find_one({'email':session['email']})
+        if 'resume' in request.form:
+            #
+        if 'photo' in request.form:
+            if fs.exists(user_info['image']):
+                image_data = fs.get(user_info['image'])
+                f = open(UPLOAD_FOLDER + user_photo, 'wb')
+                f.write(image_data.read())
+                f.close()
+            emotions = detect_face.detect_faces(UPLOAD_FOLDER + user_photo)
+            #
     return render_template("dashboard.html")
 
 @app.route("/profile")

@@ -25,6 +25,7 @@
 {% endblock %}
 
 {% block main %}
+<form method="POST">
 <div class="row" >
     <div class="jumbotron col-md-10 resume">
         <h1 class="h1-responsive">Resume Feedback</h1>
@@ -32,7 +33,7 @@
         <hr class="my-2">
         <p>
         </p>
-        <button class="btn btn-outline-primary btn-lg" role="button" type="submit">Analyze Resume</button>
+        <button class="btn btn-outline-primary btn-lg" role="button" name="resume" type="submit">Analyze Resume</button>
     </div>
 
     <div class="jumbotron col-md-10 photo">
@@ -41,7 +42,7 @@
         <hr class="my-2">
         <p>
         </p>
-        <button class="btn btn-outline-success btn-lg" role="button" type="submit">Analyze Photo</button>
+        <button class="btn btn-outline-success btn-lg" role="button" name="photo" type="submit">Analyze Photo</button>
     </div>
-
+    </form>
     {% endblock %}
