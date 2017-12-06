@@ -126,7 +126,7 @@ def dashboard():
                 f.write(image_data.read())
                 f.close()
             emotions = detect_face.detect_faces(UPLOAD_FOLDER + user_photo)
-            #
+            return emotions
     return render_template("dashboard.html")
 
 @app.route("/profile")
