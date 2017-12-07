@@ -1,3 +1,0 @@
-anger: VERY_UNLIKELY
-joy: VERY_UNLIKELY
-surprise: VERY_UNLIKELY
