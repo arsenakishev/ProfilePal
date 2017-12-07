@@ -10,6 +10,7 @@ from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = 'C:\\Users\\sparK1N9\\Desktop\\CS4523\\Project' #where the user-uploaded files will be temporarily saved
 user_photo = '\\static\\photo.jpg' #where the user-uploaded photo will be saved
+folder = '\\'
 
 app = Flask(__name__)
 db = MongoClient('mongodb://imran:password12345@ds113626.mlab.com:13626/profile-pal').get_database()
@@ -53,7 +54,7 @@ def signup():
         credential = {'email':email}
 
         if not users.find_one(credential):  
-            credential = {'email':email,'password':password,'first_name':fname,'last_name':lname,'image':''}
+            credential = {'email':email,'password':password,'first_name':fname,'last_name':lname,'image':'', 'resume':''}
 
             db.users.insert_one(credential)
             success="Success"
@@ -90,9 +91,9 @@ def editprofile():
             if file:
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                parsed = ResumeParser.parseResume(filename, UPLOAD_FOLDER+'\\'+filename)
+                parsed = ResumeParser.parseResume(filename, UPLOAD_FOLDER+folder+filename)
                 users.find_one_and_update({'email': session['email']}, {'$inc': {'count': 1}, '$set':{'resume':parsed}})
-                os.remove(UPLOAD_FOLDER+'\\'+filename)
+                os.remove(UPLOAD_FOLDER+folder+filename)
             if photo:
                 filename = secure_filename(photo.filename)
                 file_id = fs.put(photo,filename=filename)
@@ -118,6 +119,7 @@ def dashboard():
         user_info = users.find_one({'email':session['email']})
         if 'resume' in request.form:
             #
+            resume_data = user_info['resume']
             return "resume results"
         if 'photo' in request.form:
             if fs.exists(user_info['image']):
