@@ -3,15 +3,18 @@
 import os
 import gridfs
 import ResumeParser
+import sentiment
 import detect_face
 from flask import Flask, render_template, request, redirect, url_for, session, escape
 from pymongo import MongoClient
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = 'C:\\Users\\sparK1N9\\Desktop\\CS4523\\Project' #where the user-uploaded files will be temporarily saved
-user_photo = '\\static\\photo.jpg' #where the user-uploaded photo will be saved
-folder = '\\'
 
+
+
+UPLOAD_FOLDER = '/Users/AS33/Documents/ProfilePal'
+user_photo = '/static/photo.jpg' #where the user-uploaded photo will be saved
+folder = '/'
 app = Flask(__name__)
 db = MongoClient('mongodb://imran:password12345@ds113626.mlab.com:13626/profile-pal').get_database()
 users = db.users
@@ -118,9 +121,16 @@ def dashboard():
     if request.method=='POST':
         user_info = users.find_one({'email':session['email']})
         if 'resume' in request.form:
-            #
+            #should be basic test for now
             resume_data = user_info['resume']
-            return "resume results"
+            fh = open("sample.txt", 'w')
+            fh.write(resume_data)
+            fh.close()
+            results = sentiment.analyze("/Users/AS33/Documents/ProfilePal/sample.txt")
+            fk = open("test.txt", 'w')
+            fk.write(str(results[0]))
+            fk.close()
+            return str(results[0])
         if 'photo' in request.form:
             if fs.exists(user_info['image']):
                 image_data = fs.get(user_info['image'])
