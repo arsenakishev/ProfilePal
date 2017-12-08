@@ -26,23 +26,35 @@
 
 {% block main %}
 <form method="POST">
-<div class="row" >
-    <div class="jumbotron col-md-10 resume">
-        <h1 class="h1-responsive">Resume Feedback</h1>
-        <p class="lead">Make sure your latest resume is uploaded to generate its feedback</p>
-        <hr class="my-2">
-        <p>
-        </p>
-        <button class="btn btn-outline-primary btn-lg" role="button" name="resume" type="submit">Analyze Resume</button>
-    </div>
+    <div class="row" >
+        <div class="jumbotron col-md-10 resume">
+            <h1 class="h1-responsive">Resume Feedback</h1>
+            <p class="lead">Make sure your latest resume is uploaded to generate its feedback</p>
+            <hr class="my-2">
+            <p>
+            </p>
+            <button class="btn btn-outline-primary btn-lg" role="button" name="resume" type="submit">Analyze Resume</button>
+        </div>
 
-    <div class="jumbotron col-md-10 photo">
-        <h1 class="h1-responsive">Photo Feedback</h1>
-        <p class="lead">Make sure your photo that is used for professional use is uploaded to generate its feedback</p>
-        <hr class="my-2">
-        <p>
-        </p>
-        <button class="btn btn-outline-success btn-lg" role="button" name="photo" type="submit">Analyze Photo</button>
-    </div>
-    </form>
-    {% endblock %}
+        <div class="jumbotron col-md-10 photo">
+            <h1 class="h1-responsive">Photo Feedback</h1>
+            <p class="lead">Make sure your photo that is used for professional use is uploaded to generate its feedback</p>
+            <hr class="my-2">
+
+            <button class="btn btn-outline-success btn-lg" role="button" name="photo" type="submit">Analyze Photo</button>
+
+            <p class="float-left">
+                {% if emotions %}
+            <div class="float-left">
+                <img width="38%" height=38%" src="{{url_for('static',filename='img/photo.jpg')}}">
+             </div>
+            <div>
+            Anger: {{emotions.anger}}<br>
+            Joy: {{emotions.joy}}<br>
+            Suprise: {{emotions.surprise}}
+            </div>
+            {% endif %}
+            </p>
+        </div>
+</form>
+{% endblock %}
