@@ -9,12 +9,10 @@ from flask import Flask, render_template, request, redirect, url_for, session, e
 from pymongo import MongoClient
 from werkzeug.utils import secure_filename
 
+UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) #where the user-uploaded files will be temporarily saved
+user_photo = '\\static\\img\\photo.jpg' #where the user-uploaded photo will be saved
+folder = '\\' #change to '\\' if windows, else '/'
 
-
-
-UPLOAD_FOLDER = '/Users/AS33/Documents/ProfilePal'
-user_photo = '/static/photo.jpg' #where the user-uploaded photo will be saved
-folder = '/'
 app = Flask(__name__)
 db = MongoClient('mongodb://imran:password12345@ds113626.mlab.com:13626/profile-pal').get_database()
 users = db.users
@@ -138,7 +136,7 @@ def dashboard():
                 f.write(image_data.read())
                 f.close()
             emotions = detect_face.detect_faces(UPLOAD_FOLDER + user_photo)
-            return emotions[0]+'\n'+emotions[1]+'\n'+emotions[2]
+            return render_template("dashboard.html",emotions=emotions)
     return render_template("dashboard.html")
 
 @app.route("/profile")

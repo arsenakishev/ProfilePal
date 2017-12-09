@@ -6,33 +6,38 @@
 <h1 class="page-header">Edit Profile</h1>
 <div class="row">
     <!-- left column -->
-    <form method="POST" enctype="multipart/form-data">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            <div class="text-center">
-                <img src="{{ url_for('static',filename="img/photo.png") }}" class="avatar img-circle img-thumbnail" alt="avatar">
+    <form class="col-md-4 col-sm-6 col-xs-12" method="POST" enctype="multipart/form-data">
 
-                <h6>Upload a different photo...</h6>
-                <input type="file" name="photo" class="text-center center-block well well-sm">
-            </div>
-            <br>
-            <br>
-            <div class="text-center">
-                <h6>Upload a different Resume...</h6>
-                <input type="file" name="resume" class="text-center center-block well well-sm">
-            </div>
-            <br>
-            <input class="btn btn-primary" style="margin-left: 0" name="file" value="Confirm" type="submit">
+        <div>
+            {% if imgFlag==0%}
+            <img src="{{ url_for('static',filename='img/photo.png') }}" width="50%" height="50%" class="avatar img-circle img-thumbnail text-center" alt="avatar">
+            {% endif %}
+            {% if imgFlag==1%}
+            <img src="{{ url_for('static',filename='img/photo.jpg') }}" width="50%" height="50%" style="object-fit:contain" class="avatar img-circle img-thumbnail" alt="avatar">
 
+            {% endif %}
+
+            <h6><strong>Upload a different photo...</strong></h6>
+            <input type="file" name="photo" class="text-center center-block well well-sm">
         </div>
+        <br>
+        <br>
+        <div>
+            <h6><strong>Upload a different Resume...</strong></h6>
+            <input type="file" name="resume" class="text-center center-block well well-sm">
+        </div>
+        <br>
+        <input class="btn btn-primary" style="margin-left: 0" name="file" value="Confirm" type="submit">
+
     </form>
 
     <!-- edit form column -->
     <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
 
-         {% if flag==1 %}
-            <div class="alert alert-danger" role="alert">
-                <strong>Passwords do not match</strong>. Please try again.
-            </div>
+        {% if flag==1 %}
+        <div class="alert alert-danger" role="alert">
+            <strong>Passwords do not match</strong>. Please try again.
+        </div>
         {% endif %}
 
         <h3>Personal info</h3>

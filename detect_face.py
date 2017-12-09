@@ -18,12 +18,14 @@ def detect_faces(path):
 
     likelihood_name = ('UNKNOWN', 'VERY_UNLIKELY', 'UNLIKELY', 'POSSIBLE',
                        'LIKELY', 'VERY_LIKELY')
-    emotions = []
-    
+    emotion = {}
+    emotions=[]
     for face in faces:
         emotions.append('anger: {}'.format(likelihood_name[face.anger_likelihood]))
         emotions.append('joy: {}'.format(likelihood_name[face.joy_likelihood]))
         emotions.append('surprise: {}'.format(likelihood_name[face.surprise_likelihood]))
-      
-    return emotions
+        emotion["anger"]=likelihood_name[face.anger_likelihood]
+        emotion["joy"]=likelihood_name[face.joy_likelihood]
+        emotion["surprise"] = likelihood_name[face.surprise_likelihood]
+    return emotion
 
