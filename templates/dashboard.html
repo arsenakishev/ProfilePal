@@ -40,15 +40,14 @@
             <h1 class="h1-responsive">Photo Feedback</h1>
             <p class="lead">Make sure your photo that is used for professional use is uploaded to generate its feedback</p>
             <hr class="my-2">
-
+            <div>
             <button class="btn btn-outline-success btn-lg" role="button" name="photo" type="submit">Analyze Photo</button>
-
+            </div>
             <p class="float-left">
                 {% if emotions %}
-            <div class="float-left">
-                <img width="38%" height=38%" src="{{url_for('static',filename='img/photo.jpg')}}">
-             </div>
-            <div>
+            <div class="text-center">
+                <img style="max-width: 100%; height: auto; min-height:250px; max-height:250px; " id="photo"src="{{url_for('static',filename='img/photo.jpg')}}">
+            <br>
             Anger: {{emotions.anger}}<br>
             Joy: {{emotions.joy}}<br>
             Suprise: {{emotions.surprise}}
@@ -57,4 +56,9 @@
             </p>
         </div>
 </form>
+<script language="javascript" type="text/javascript">
+    var d = new Date();
+    console.log("{{ url_for('static',filename='img/photo.jpg') }}" + "?ver=" + d.getTime())
+    document.getElementById("photo").src = "{{ url_for('static',filename='img/photo.jpg') }}" + "?ver=" + d.getTime()
+</script>
 {% endblock %}

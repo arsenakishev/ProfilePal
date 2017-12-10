@@ -20,6 +20,8 @@ feedback_picture = db.Feedback_Picture
 fs=gridfs.GridFS(db)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+
+
 @app.route('/')
 def index():
     if 'email' in session:
@@ -127,13 +129,15 @@ def dashboard():
                 f.write(image_data.read())
                 f.close()
             emotions = detect_face.detect_faces(UPLOAD_FOLDER + user_photo)
-            return render_template("dashboard.html",emotions=emotions)
+            return render_template("dashboard.ht"
+                                   "ml",emotions=emotions)
     return render_template("dashboard.html")
+
 
 @app.route("/profile")
 def profile():
     imageFlag = 0 # 0: no uploaded photo, 1: user has previously uploaded a photo
-    if 'email' not in session: return '<a href="http://127.0.0.1:13000/">log in</a> first!' #requires an account to access this page
+    if 'email' not in session: return render_template('login.html') #requires an account to access this page
     user_info = users.find_one({'email':session['email']})
     if fs.exists(user_info['image']):
         imageFlag = 1

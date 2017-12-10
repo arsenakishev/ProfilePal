@@ -8,12 +8,12 @@
     <!-- left column -->
     <form class="col-md-4 col-sm-6 col-xs-12" method="POST" enctype="multipart/form-data">
 
-        <div>
+        <div style="height=200px">
             {% if imgFlag==0%}
             <img src="{{ url_for('static',filename='img/photo.png') }}" width="50%" height="50%" class="avatar img-circle img-thumbnail text-center" alt="avatar">
             {% endif %}
             {% if imgFlag==1%}
-            <img src="{{ url_for('static',filename='img/photo.jpg') }}" width="50%" height="50%" style="object-fit:contain" class="avatar img-circle img-thumbnail" alt="avatar">
+            <img id = "photo" src="{{ url_for('static',filename='img/photo.jpg') }}" style="max-width: 100%; min-height:250px; max-height:250px; height: auto;" class="avatar img-circle img-thumbnail" alt="avatar">
 
             {% endif %}
 
@@ -91,5 +91,9 @@
         </form>
     </div>
 </div>
-
+<script language="javascript" type="text/javascript">
+    var d = new Date();
+    console.log("{{ url_for('static',filename='img/photo.jpg') }}" + "?ver=" + d.getTime())
+    document.getElementById("photo").src = "{{ url_for('static',filename='img/photo.jpg') }}" + "?ver=" + d.getTime()
+</script>
 {% endblock %}
