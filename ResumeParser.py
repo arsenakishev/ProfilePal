@@ -42,8 +42,8 @@ def parseResume(fileName, filePath):
 
         client = Client('http://www.cvparseapi.com/cvparseapi.asmx?WSDL')
         big_endpoint = "http://www.cvparseapi.com/cvparseapi.asmx?WSDL"
-        big_key = "f8100053-6dc2-e711-910e-00155d692ee1"
-        big_pass = "designproject"
+        big_key = "5d23b575-f1de-e711-910e-00155d692ee1"
+        big_pass = "hola1234pesos"
 
         result = client.service.ParseResumeNTG(f=file_contents, fileName=file_name, YourKey=big_key, Password=big_pass)
 
