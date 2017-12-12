@@ -27,7 +27,9 @@
             <input type="file" name="resume" class="text-center center-block well well-sm">
         </div>
         <br>
-        <input class="btn btn-primary" style="margin-left: 0" name="file" value="Confirm" type="submit">
+        <button class="btn btn-outline-primary" style="margin-left: 0" name="file" type="submit" onclick="loading('#upload')">Confirm<svg id="upload" class="spinner spinner2" style="display:none" viewBox="0 0 50 50">
+                        <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+                </svg></span></button>
 
     </form>
 
@@ -85,7 +87,7 @@
             <div class="form-group">
                 <label class="col-md-3 control-label"></label>
                 <div class="col-md-8">
-                    <input class="btn btn-cyan" name="confirm" value="Save Changes" type="submit">
+                    <button class="btn btn-outline-cyan" name="confirm" type="submit">Submit Changes</button>
                 </div>
             </div>
         </form>
@@ -95,5 +97,8 @@
     var d = new Date();
     console.log("{{ url_for('static',filename='img/photo.jpg') }}" + "?ver=" + d.getTime())
     document.getElementById("photo").src = "{{ url_for('static',filename='img/photo.jpg') }}" + "?ver=" + d.getTime()
+    function loading(id){
+        $(id).show()
+    }
 </script>
 {% endblock %}
