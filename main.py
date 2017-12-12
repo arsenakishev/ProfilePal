@@ -1,5 +1,6 @@
 # Currently this code assumes that the user will input correct information and does not check if the input is valid.
 #pip install pymongo
+import json
 import os
 import gridfs
 import ResumeParser
@@ -121,13 +122,11 @@ def dashboard():
         if 'resume' in request.form:
             #should be basic test for now
             resume_data = user_info['resume']
-            fh = open("sample.txt", 'w')
-            fh.write(resume_data)
+            fh = open("sentiment_results.txt", 'w')
+            parsed_output = json.loads(resume_data)
+            fh.write(json.dumps(parsed_output["DocumentElement"]["Resume"]["Experience"], indent=4, sort_keys=True))
             fh.close()
-            results = sentiment.analyze("/Users/AS33/Documents/ProfilePal/sample.txt")
-            fk = open("test.txt", 'w')
-            fk.write(str(results[0]))
-            fk.close()
+            results = sentiment.analyze("sentiment_results.txt")
             return str(results[0])
         if 'photo' in request.form:
             if fs.exists(user_info['image']):

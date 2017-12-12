@@ -14,7 +14,6 @@ def return_results(annotations):
 
     return sentiment_list 
 
-
 def analyze(filename):
     client = language.LanguageServiceClient()
 
@@ -26,8 +25,9 @@ def analyze(filename):
         type=enums.Document.Type.PLAIN_TEXT)
     annotations = client.analyze_sentiment(document=document)
 
-    # Print the results
     return return_results(annotations)
+
+
 
 
 if __name__ == '__main__':
