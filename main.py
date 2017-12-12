@@ -32,7 +32,7 @@ def index():
 def login():
     error = None
 
-    if request.method=='POST':
+    if request.method=='POST' and request.form["inputEmail"]!='' and request.form["inputPassword"] !='':
         email = request.form["inputEmail"]
         password = request.form["inputPassword"]
         credential = {'email':email,'password':password}
@@ -47,7 +47,7 @@ def login():
 def signup():
     error =None
     success=None
-    if request.method=='POST':
+    if request.method=='POST' and request.form["inputEmail"]!='' and request.form["inputPassword"] !='':
         name = request.form["name"].split()
         fname = name[0]
         lname = name[len(name) - 1]
