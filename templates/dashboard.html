@@ -40,21 +40,31 @@
             <h1 class="h1-responsive">Photo Feedback</h1>
             <p class="lead">Make sure your photo that is used for professional use is uploaded to generate its feedback</p>
             <hr class="my-2">
+
             <div>
-            <button class="btn btn-outline-success btn-lg" role="button" name="photo" type="submit">Analyze Photo</button>
+                <button class="btn btn-outline-success btn-lg" role="button" name="photo" type="submit">Analyze Photo</button> <span>
+                {% if not photo %}
+                Upload Photo here: <strong><a href="{{url_for('editprofile')}}">Edit Profile</a> </strong>
+                {% endif %}
+            </span>
             </div>
             <p class="float-left">
+            {% if photo %}
                 {% if emotions %}
             <div class="text-center">
-                <img style="max-width: 100%; height: auto; min-height:250px; max-height:250px; " id="photo"src="{{url_for('static',filename='img/photo.jpg')}}">
+            <img style="max-width: 100%; height: auto; min-height:250px; max-height:250px; " id="photo"src="{{url_for('static',filename='img/photo.jpg')}}">
             <br>
+
             Anger: {{emotions.anger}}<br>
             Joy: {{emotions.joy}}<br>
             Suprise: {{emotions.surprise}}
-            </div>
+        </div>
+            {% endif %}
+
             {% endif %}
             </p>
         </div>
+
 </form>
 <script language="javascript" type="text/javascript">
     var d = new Date();

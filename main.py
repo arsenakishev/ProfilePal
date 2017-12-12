@@ -123,14 +123,17 @@ def dashboard():
             #
             return "resume results"
         if 'photo' in request.form:
+            photo=False
+            emotions=False
             if fs.exists(user_info['image']):
                 image_data = fs.get(user_info['image'])
                 f = open(UPLOAD_FOLDER + user_photo, 'wb')
                 f.write(image_data.read())
                 f.close()
-            emotions = detect_face.detect_faces(UPLOAD_FOLDER + user_photo)
+                photo = True
+                emotions = detect_face.detect_faces(UPLOAD_FOLDER + user_photo)
             return render_template("dashboard.ht"
-                                   "ml",emotions=emotions)
+                                   "ml",emotions=emotions,photo=photo)
     return render_template("dashboard.html")
 
 
