@@ -51,7 +51,7 @@
             <hr class="my-2">
 
             <div>
-                <button class="btn btn-outline-success btn-lg" role="button" name="photo" type="submit" onclick="loading('#photo')">Analyze Photo<span><svg id="photo" class="spinner" style="display:none" viewBox="0 0 50 50">
+                <button class="btn btn-outline-success btn-lg" role="button" name="photo" type="submit" onclick="loading('#photo2')">Analyze Photo<span><svg id="photo2" class="spinner" style="display:none" viewBox="0 0 50 50">
                         <circle class="path2" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
                 </svg></span></button> <span>
                 {% if not photo %}
@@ -63,7 +63,7 @@
             {% if photo %}
                 {% if emotions %}
             <div class="text-center">
-            <img style="max-width: 100%; height: auto; min-height:250px; max-height:250px; " id="photo"src="{{url_for('static',filename='img/photo.jpg')}}">
+            <img style="max-width: 100%; height: auto; min-height:250px; max-height:250px; " style="width:auto; min-height:200px; max-height:250px; height: auto;"  id="photo"src="{{url_for('static',filename='img/photo.jpg')}}">
             <br>
 
             Anger: {{emotions.anger}}<br>
