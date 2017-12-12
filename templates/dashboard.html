@@ -34,6 +34,12 @@
             <p>
             </p>
             <button class="btn btn-outline-primary btn-lg" role="button" name="resume" type="submit">Analyze Resume</button>
+            {% if not resume %}
+                Upload Resume here: <strong><a href="{{url_for('editprofile')}}">Edit Profile</a> </strong>
+            {% endif %}
+            {% if score %}
+                {{score}}
+            {% endif %}
         </div>
 
         <div class="jumbotron col-md-10 photo">

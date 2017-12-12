@@ -1,16 +1,18 @@
 # Currently this code assumes that the user will input correct information and does not check if the input is valid.
 #pip install pymongo
+import json
 import os
 import gridfs
 import ResumeParser
+import sentiment
 import detect_face
 from flask import Flask, render_template, request, redirect, url_for, session, escape
 from pymongo import MongoClient
 from werkzeug.utils import secure_filename
 
-
 UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) #where the user-uploaded files will be temporarily saved
 user_photo = '\\static\\img\\photo.jpg' #where the user-uploaded photo will be saved
+folder = '\\' #change to '\\' if windows, else '/'
 
 app = Flask(__name__)
 db = MongoClient('mongodb://imran:password12345@ds113626.mlab.com:13626/profile-pal').get_database()
@@ -19,8 +21,6 @@ feedback_resume = db.Feedback_Resume
 feedback_picture = db.Feedback_Picture
 fs=gridfs.GridFS(db)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-
 
 @app.route('/')
 def index():
@@ -56,7 +56,7 @@ def signup():
         credential = {'email':email}
 
         if not users.find_one(credential):  
-            credential = {'email':email,'password':password,'first_name':fname,'last_name':lname,'image':''}
+            credential = {'email':email,'password':password,'first_name':fname,'last_name':lname,'image':'', 'resume':''}
 
             db.users.insert_one(credential)
             success="Success"
@@ -93,9 +93,9 @@ def editprofile():
             if file:
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                parsed = ResumeParser.parseResume(filename, UPLOAD_FOLDER+'\\'+filename)
+                parsed = ResumeParser.parseResume(filename, UPLOAD_FOLDER+folder+filename)
                 users.find_one_and_update({'email': session['email']}, {'$inc': {'count': 1}, '$set':{'resume':parsed}})
-                os.remove(UPLOAD_FOLDER+'\\'+filename)
+                os.remove(UPLOAD_FOLDER+folder+filename)
             if photo:
                 filename = secure_filename(photo.filename)
                 file_id = fs.put(photo,filename=filename)
@@ -120,27 +120,34 @@ def dashboard():
     if request.method=='POST':
         user_info = users.find_one({'email':session['email']})
         if 'resume' in request.form:
-            #
-            return "resume results"
+            #should be basic test for now
+            resume = False
+            if fs.exists(user_info['image']):
+                resume_data = user_info['resume']
+                fh = open("sentiment_results.txt", 'w')
+                parsed_output = json.loads(resume_data)
+                fh.write(json.dumps(parsed_output["DocumentElement"]["Resume"]["Experience"], indent=4, sort_keys=True))
+                fh.close()
+                results = sentiment.analyze("sentiment_results.txt")
+                resume= True
+            return render_template("dashboard.html", score=results[0], resume=resume)
         if 'photo' in request.form:
-            photo=False
+            photo = False
             emotions=False
             if fs.exists(user_info['image']):
                 image_data = fs.get(user_info['image'])
                 f = open(UPLOAD_FOLDER + user_photo, 'wb')
                 f.write(image_data.read())
                 f.close()
-                photo = True
                 emotions = detect_face.detect_faces(UPLOAD_FOLDER + user_photo)
-            return render_template("dashboard.ht"
-                                   "ml",emotions=emotions,photo=photo)
+                photo=True
+            return render_template("dashboard.html",emotions=emotions,photo=photo)
     return render_template("dashboard.html")
-
 
 @app.route("/profile")
 def profile():
     imageFlag = 0 # 0: no uploaded photo, 1: user has previously uploaded a photo
-    if 'email' not in session: return render_template('login.html') #requires an account to access this page
+    if 'email' not in session: return '<a href="http://127.0.0.1:13000/">log in</a> first!' #requires an account to access this page
     user_info = users.find_one({'email':session['email']})
     if fs.exists(user_info['image']):
         imageFlag = 1
