@@ -21,21 +21,9 @@
 
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark blue double-nav">
-        <div class="container">
+        <div class="container text-center">
             {% block brand %}<a class="navbar-brand" href="#"><strong>ProfilePal</strong></a>{% endblock %}
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                {% block header %}
-                    <ul class="navbar-nav ml-auto">
-                        <form class="form-inline">
-                            <a class="btn btn-blue btn-sm my-0"type="submit" href="{{ url_for('login') }}">Login</a>
 
-                            <a class="btn btn-pink btn-sm my-0" type="submit" href="{{ url_for('signup') }}">Sign Up</a>
-                        </form>
-                    </ul>
-                {% endblock %}
-            </div>
         </div>
 
     </nav>
