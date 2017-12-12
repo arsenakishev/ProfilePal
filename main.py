@@ -127,7 +127,7 @@ def dashboard():
             fh.write(json.dumps(parsed_output["DocumentElement"]["Resume"]["Experience"], indent=4, sort_keys=True))
             fh.close()
             results = sentiment.analyze("sentiment_results.txt")
-            return str(results[0])
+            return render_template("dashboard.html", score=results[0]) 
         if 'photo' in request.form:
             if fs.exists(user_info['image']):
                 image_data = fs.get(user_info['image'])
