@@ -116,27 +116,34 @@ def editprofile():
 
 @app.route('/dashboard', methods=['post', 'get'])
 def dashboard():
-    if 'email' not in session: return '<a href="http://127.0.0.1:13000/">log in</a> first!' #requires an account to access this page
+    if 'email' not in session: return redirect(url_for('login'))#requires an account to access this page
+    resume = True
+    photo = True
+    emotions = False
+    score = False
     if request.method=='POST':
         user_info = users.find_one({'email':session['email']})
         if 'resume' in request.form:
-            #should be basic test for now
-            resume_data = user_info['resume']
-            fh = open("sentiment_results.txt", 'w')
-            parsed_output = json.loads(resume_data)
-            fh.write(json.dumps(parsed_output["DocumentElement"]["Resume"]["Experience"], indent=4, sort_keys=True))
-            fh.close()
-            results = sentiment.analyze("sentiment_results.txt")
-            return render_template("dashboard.html", score=results[0]) 
+            if fs.exists(user_info['image']):
+                resume_data = user_info['resume']
+                fh = open("sentiment_results.txt", 'w')
+                parsed_output = json.loads(resume_data)
+                fh.write(json.dumps(parsed_output["DocumentElement"]["Resume"]["Experience"], indent=4, sort_keys=True))
+                fh.close()
+                results = sentiment.analyze("sentiment_results.txt")
+                score = results[0]
+            else:
+                resume=False
         if 'photo' in request.form:
             if fs.exists(user_info['image']):
                 image_data = fs.get(user_info['image'])
                 f = open(UPLOAD_FOLDER + user_photo, 'wb')
                 f.write(image_data.read())
                 f.close()
-            emotions = detect_face.detect_faces(UPLOAD_FOLDER + user_photo)
-            return render_template("dashboard.html",emotions=emotions)
-    return render_template("dashboard.html")
+                emotions = detect_face.detect_faces(UPLOAD_FOLDER + user_photo)
+            else:
+                photo = False
+    return render_template("dashboard.html",emotions=emotions,photo=photo, score=score, resume=resume)
 
 @app.route("/profile")
 def profile():
