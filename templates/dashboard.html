@@ -4,23 +4,25 @@
 <a class="navbar-brand" href="{{ url_for('dashboard') }}"><strong>ProfilePal</strong></a>
 {% endblock %}
 {% block header%}
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="nav navbar-nav nav-flex-icons ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('profile') }}">
+                <i class="fa fa-user"></i>
+                <span class="clearfix d-none d-sm-inline-block">Account</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('logOut') }}">
+                <i class="fa fa-gear"></i>
+                <span class="clearfix d-none d-sm-inline-block">Logout</span>
+            </a>
+        </li>
 
-<ul class="nav navbar-nav nav-flex-icons ml-auto">
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('profile') }}">
-            <i class="fa fa-user"></i>
-            <span class="clearfix d-none d-sm-inline-block">Account</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('logOut') }}">
-            <i class="fa fa-gear"></i>
-            <span class="clearfix d-none d-sm-inline-block">Logout</span>
-        </a>
-    </li>
-
-</ul>
-
+    </ul>
+</div>
 
 {% endblock %}
 
@@ -61,14 +63,11 @@
             </div>
             <p class="float-left">
             {% if photo %}
-                {% if emotions %}
+                {% if photo_feedback %}
             <div class="text-center">
-            <img style="max-width: 100%; height: auto; min-height:250px; max-height:250px; " style="width:auto; min-height:200px; max-height:250px; height: auto;"  id="photo"src="{{url_for('static',filename='img/photo.jpg')}}">
+            <img style="width:auto; min-height:200px; max-height:250px; height: auto;"  id="photo"src="{{url_for('static',filename='img/photo.jpg')}}">
             <br>
-
-            Anger: {{emotions.anger}}<br>
-            Joy: {{emotions.joy}}<br>
-            Suprise: {{emotions.surprise}}
+            <h3 class="lead clearfix" ><strong>{{photo_feedback}}</strong></h3>
         </div>
             {% endif %}
 

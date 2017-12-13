@@ -1,5 +1,13 @@
 {% extends "index.html" %}
 
+
+
+{% block nav %}
+    <nav class="navbar navbar-expand-lg navbar-dark double-nav" sy>
+
+
+
+        {% endblock %}
 {% block main %}
 
     <section class="form-light">
@@ -16,51 +24,42 @@
             </div>
         {% endif %}
         <!--Form without header-->
-        <div class="card" id="signup">
+        <div class="card card2" id="signup">
 
 
             <div class="card-body mx-4">
 
                 <!--Header-->
                 <div class="text-center">
-                    <h3 class="pink-text mb-5"><strong>Sign up</strong></h3>
+                    <h3 class="white-text mb-5"><strong>Sign up</strong></h3>
                 </div>
 
                 <!--Body-->
                 <form method="POST">
                     <div class="md-form">
-                        <i class="fa fa-user prefix grey-text"></i>
-                        <input type="text" id="Form-name" name="name" class="form-control">
-                        <label for="Form-email2">Your name</label>
+                        <i class="fa fa-user prefix black-text"></i>
+                        <input type="text" id="Form-name" name="name" class="form-control white-text" >
+                        <label for="Form-email2" class="white-text">Your name</label>
                     </div>
 
                     <div class="md-form">
-                        <i class="fa fa-envelope prefix grey-text"></i>
-                        <input type="text" id="Form-email2" name="email" class="form-control">
-                        <label for="Form-email2">Your email</label>
+                        <i class="fa fa-envelope prefix black-text"></i>
+                        <input type="text" id="Form-email2" name="email" class="form-control white-text" >
+                        <label for="Form-email2" class="white-text">Your email</label>
                     </div>
 
                     <div class="md-form pb-3">
-                        <i class="fa fa-lock prefix grey-text"></i>
-                        <input type="password" id="Form-pass2" name="password" class="form-control">
-                        <label for="Form-pass2">Your password</label>
+                        <i class="fa fa-lock prefix black-text"></i>
+                        <input type="password" id="Form-pass2" name="password" class="form-control white-text">
+                        <label for="Form-pass2" class="text-white">Your password</label>
 
                     </div>
                     <!--Grid row-->
                     <div class="row d-flex align-items-center mb-4">
 
                         <!--Grid column-->
-                        <div class="col-md-3 col-md-6 text-center">
-                            <button type="submit" class="btn btn-pink btn-block btn-rounded z-depth-1">Sign up</button>
+                        <button type="submit" class="btn btn-pink btn-block btn-rounded z-depth-1">Sign up</button>
 
-                        </div>
-
-
-                        <!--Grid column-->
-                        <div class="col-md-6">
-                            <p class="font-small grey-text d-flex justify-content-end">Have an account? <a href="{{ url_for('login') }}" class="blue-text ml-1"> Log in</a></p>
-                        </div>
-                        <!--Grid column-->
 
                     </div>
                 </form>
@@ -70,6 +69,7 @@
             <!--Footer-->
             <div class="footer pt-3 mdb-color lighten-3">
 
+                <p class="font-small white-text d-flex justify-content-center" style="margin-bottom: 0px; padding-bottom: 16px"><strong>Have an account? <a href="{{ url_for('login') }}" class="white-text ml-1"> Log in</a></strong></p>
 
 
             </div>
@@ -79,4 +79,14 @@
 
     </section>
 
+        <script type="text/javascript">
+
+    document.body.style.background= "url({{url_for("static",filename="img/background.jpg")}})"
+
+    document.body.style.backgroundSize="cover"
+</script>
+
+{% endblock %}
+{% block footer %}
+<footer class="page-footer center-on-small-only ">
 {% endblock %}

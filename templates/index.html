@@ -20,9 +20,14 @@
 <!-- Start your project here-->
 
 <header>
-    <nav class="navbar navbar-expand-lg navbar-dark blue double-nav">
+    {% block nav %}
+    <nav class="navbar navbar-expand-lg navbar-dark blue double-nav center-on-small-only">
+        {% endblock %}
         <div class="container text-center">
             {% block brand %}<a class="navbar-brand" href="#"><strong>ProfilePal</strong></a>{% endblock %}
+            {% block header %}
+
+            {% endblock %}
 
         </div>
 
@@ -43,8 +48,9 @@
         {% endblock %}
     </div>
 </main>
+{% block footer %}
 <footer class="page-footer blue center-on-small-only ">
-
+{% endblock %}
 
     <div class="footer-copyright">
         <div class="container-fluid">

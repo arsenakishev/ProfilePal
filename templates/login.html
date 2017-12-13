@@ -1,6 +1,13 @@
 {% extends "index.html" %}
 
 
+{% block nav %}
+    <nav class="navbar navbar-expand-lg navbar-dark double-nav" sy>
+
+
+
+        {% endblock %}
+
 {% block main %}
 
     <section class="form-elegant" id="signup">
@@ -14,26 +21,26 @@
         {% endif %}
 
 
-        <div class="card">
+        <div class="card card2" >
             <form method="POST">
                 <div class="card-body mx-4">
 
                     <!--Header-->
                     <div class="text-center">
-                        <h3 class="dark-grey-text mb-5"><strong>Sign in</strong></h3>
+                        <h3 class="white-text mb-5"><strong>Sign in</strong></h3>
                     </div>
 
                     <!--Body-->
                     <div class="md-form">
-                        <i class="fa fa-envelope prefix grey-text"></i>
-                        <input type="text" id="Form-email1" name="inputEmail" class="form-control">
-                        <label for="Form-email1">Your email</label>
+                        <i class="fa fa-envelope prefix black-text"></i>
+                        <input type="text" id="Form-email1" name="inputEmail" class="form-control white-text ">
+                        <label class="white-text"for="Form-email1">Your email</label>
                     </div>
 
                     <div class="md-form pb-3">
-                        <i class="fa fa-lock prefix grey-text"></i>
-                        <input type="password" name="inputPassword" id="Form-pass1" class="form-control">
-                        <label for="Form-pass1">Your password</label>
+                        <i class="fa fa-lock prefix black-text"></i>
+                        <input type="password" name="inputPassword" id="Form-pass1" class="form-control white-text ">
+                        <label class="white-text"for="Form-pass1">Your password</label>
                     </div>
 
                     <div class="text-center mb-3">
@@ -43,8 +50,9 @@
                 </div>
 
                 <!--Footer-->
-                <div class="modal-footer mx-5 pt-3 mb-1">
-                    <p class="font-small grey-text d-flex justify-content-end">Not a member? <a href="{{ url_for('signup') }}" class="blue-text ml-1"> Sign Up</a></p>
+
+                <div class="footer pt-3 mdb-color lighten-2">
+                    <p class="font-small white-text d-flex justify-content-center" style="margin-bottom: 0px; padding-bottom: 16px"><strong>Not a member? <a href="{{ url_for('signup') }}" class="white-text ml-1"> Sign Up</strong></a></p>
                 </div>
             </form>
         </div>
@@ -52,5 +60,14 @@
 
     </section>
 
+<script type="text/javascript">
 
+    document.body.style.background= "url({{url_for("static",filename="img/background.jpg")}})"
+
+    document.body.style.backgroundSize="cover"
+</script>
+
+{% endblock %}
+{% block footer %}
+<footer class="page-footer center-on-small-only ">
 {% endblock %}
