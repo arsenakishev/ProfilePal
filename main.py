@@ -25,13 +25,19 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 
-def analyzeRelease(Anger, Joy, Suprise):
+def analyzeRelease(Anger, Joy, Suprise, Blurred, Headwear):
     AngerHigh = "This image is not very professional. Our analysis of this profile photo shows that it is giving out a tone of anger. Try taking a picture with a smile!"
     AngerKHigh = "This image is ok, but it can be better and more professional. Our analysis of this profile phot shows that it is giving out some tones of anger. Retake the photo."
     SupriseHigh = "This is not an ideal image to utilize. Our analysis of this profile picture reveals that it seems the subject of the image is very surprised. Retake the photo with a more relaxed look."
     SupriseKHigh = "This image is ok, but it can definitely be improved. Our analysis of the profile picture shows that it is giving off some tones of surprise. We suggest you take another image and look a but more relaxed, perhaps just give a little smile."
     GoodImage = "Wow, you look like you are ready to start working today. Our analysis reveals that this is a very good image to utilize for any professional profile."
-    if(Anger == 'VERY_LIKELY'):
+    HeadwearLikely = "TAKE OFF THAT HAT.The analysis of your profile picture shows you are wearing some type of head garment.If it is for a non religious reason, take it off and retake your picture."
+    BlurredLikely = "Our analysis of your profile picture shows that the image is somewhat blurrred. We suggest retaking the picture and making sure the camera is still so you get a clearer image."
+    if(Blurred==('LIKELY' or 'VERY_LIKELY')):
+        return  HeadwearLikely
+    elif(Headwear==('LIKELY' or 'VERY_LIKELY')):
+        return BlurredLikely
+    elif(Anger == 'VERY_LIKELY'):
         return AngerHigh
     elif(Anger == "LIKELY"):
         return AngerKHigh
@@ -142,6 +148,7 @@ def dashboard():
     emotions = False
     photo_feedback = False
     score = False
+    error = False
     if request.method=='POST':
         user_info = users.find_one({'email':session['email']})
         if 'resume' in request.form:
@@ -162,10 +169,12 @@ def dashboard():
                 f.write(image_data.read())
                 f.close()
                 emotions = detect_face.detect_faces(UPLOAD_FOLDER + user_photo)
-                photo_feedback = analyzeRelease(emotions["anger"], emotions["joy"], emotions["surprise"])
+                photo_feedback = analyzeRelease(emotions["anger"], emotions["joy"], emotions["surprise"],emotions["blurred"],emotions["headwear"]) if emotions else False
+                error = False if photo_feedback else True
+
             else:
                 photo = False
-    return render_template("dashboard.html",emotions=emotions,photo=photo, score=score, resume=resume,photo_feedback=photo_feedback)
+    return render_template("dashboard.html",emotions=emotions,photo=photo, score=score, resume=resume,photo_feedback=photo_feedback, error=error)
 
 @app.route("/profile")
 def profile():

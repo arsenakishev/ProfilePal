@@ -70,6 +70,13 @@
             <h3 class="lead clearfix" ><strong>{{photo_feedback}}</strong></h3>
         </div>
             {% endif %}
+            {% if error %}
+             <div class="text-center">
+            <img style="width:auto; min-height:200px; max-height:250px; height: auto;"  id="photo"src="{{url_for('static',filename='img/photo.jpg')}}">
+            <br>
+            <h3 class="lead clearfix" ><strong>Our analysis of your profile picture shows that the image is somewhat blurred. We suggest retaking the picture and making sure the camera is still so you get a clearer image.</strong></h3>
+            {% endif %}
+
 
             {% endif %}
             </p>
