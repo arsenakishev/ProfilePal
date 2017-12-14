@@ -38,12 +38,16 @@
             <button class="btn btn-outline-primary btn-lg" role="button" name="resume" type="submit" onclick="loading('#resume')">Analyze Resume<span><svg id="resume" class="spinner"style="display:none" viewBox="0 0 50 50">
                         <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
                 </svg></span></button>
+            <a href="{{url_for('editprofile')}}" class="btn btn-outline-primary btn-lg" role="button">Update Resume</a>
 
             {% if not resume %}
                 Upload Resume here: <strong><a href="{{url_for('editprofile')}}">Edit Profile</a> </strong>
             {% endif %}
-            {% if score %}
-                {{score}}
+            {% if resume_feedback %}
+            <div class="text-center">
+                <br>
+                <h3 class="lead clearfix" ><strong>{{score}} {{resume_feedback}}</strong></h3>
+            </div>
             {% endif %}
         </div>
 
@@ -56,6 +60,8 @@
                 <button class="btn btn-outline-success btn-lg" role="button" name="photo" type="submit" onclick="loading('#photo2')">Analyze Photo<span><svg id="photo2" class="spinner" style="display:none" viewBox="0 0 50 50">
                         <circle class="path2" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
                 </svg></span></button> <span>
+                <a href="{{url_for('editprofile')}}" class="btn btn-outline-success btn-lg" role="button">Update Photo</a>
+
                 {% if not photo %}
                 Upload Photo here: <strong><a href="{{url_for('editprofile')}}">Edit Profile</a> </strong>
                 {% endif %}

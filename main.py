@@ -47,6 +47,20 @@ def analyzeRelease(Anger, Joy, Suprise, Blurred, Headwear):
         return SupriseKHigh
     else: return GoodImage
 
+def analyzeResume(score):
+    VeryLowScore = "Your writing is extremely negative and needs to include more positive words."
+    LowScore = "The general trend of your writing is negative there are slight improvements that you can make"
+    HighScore ="Overall a positive trend in writing. further positive structures and phrases can be included but good job regardless."
+    VeryHighScore = "Excellent and positive writing. Keep up the good work."
+
+    if score < -0.5:
+        return VeryLowScore
+    elif score < 0 and score >= -0.5:
+        return LowScore
+    elif score >0 and score <=0.5:
+        return HighScore
+    else:
+        return VeryHighScore
 
 @app.route('/')
 def index():
@@ -92,7 +106,7 @@ def signup():
 
 @app.route('/editProfile', methods=['post', 'get'])
 def editprofile():
-    if 'email' not in session: return '<a href="http://127.0.0.1:13000/">log in</a> first!' #requires an account to access this page
+    if 'email' not in session: return redirect(url_for('login'))#requires an account to access this page
     flag = 0 # 0: no error, 1: password and confirm password not the same, 2: the new email is already associated with an account
     imageFlag = 0 # 0: no uploaded photo, 1: user has previously uploaded a photo
     if request.method=='POST':
@@ -147,12 +161,13 @@ def dashboard():
     photo = True
     emotions = False
     photo_feedback = False
+    resume_feedback = False
     score = False
     error = False
     if request.method=='POST':
         user_info = users.find_one({'email':session['email']})
         if 'resume' in request.form:
-            if fs.exists(user_info['image']):
+            if user_info['resume'] != '':
                 resume_data = user_info['resume']
                 fh = open("sentiment_results.txt", 'w')
                 parsed_output = json.loads(resume_data)
@@ -160,6 +175,7 @@ def dashboard():
                 fh.close()
                 results = sentiment.analyze("sentiment_results.txt")
                 score = results[0]
+                resume_feedback = analyzeResume(score)
             else:
                 resume=False
         if 'photo' in request.form:
@@ -174,12 +190,12 @@ def dashboard():
 
             else:
                 photo = False
-    return render_template("dashboard.html",emotions=emotions,photo=photo, score=score, resume=resume,photo_feedback=photo_feedback, error=error)
+    return render_template("dashboard.html",emotions=emotions,photo=photo, score=score, resume=resume,photo_feedback=photo_feedback, resume_feedback=resume_feedback, error=error)
 
 @app.route("/profile")
 def profile():
     imageFlag = 0 # 0: no uploaded photo, 1: user has previously uploaded a photo
-    if 'email' not in session: return '<a href="http://127.0.0.1:13000/">log in</a> first!' #requires an account to access this page
+    if 'email' not in session: return redirect(url_for('login')) #requires an account to access this page
     user_info = users.find_one({'email':session['email']})
     if fs.exists(user_info['image']):
         imageFlag = 1
